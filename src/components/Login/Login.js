@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { LoginService } from "../../service/login.service";
 
 const Login = () => {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const service = new LoginService()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,12 +15,9 @@ const Login = () => {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    console.log({ email, password });
-
-    setTimeout(() => {
-      setMessage("Login realizado com sucesso");
-      setIsLoading(false);
-    }, 1000);
+    const response = await service.login({ email, password });
+    console.log(response)
+    setIsLoading(false);
   };
 
   return (

@@ -39,11 +39,14 @@
   },
   "permissions": [
     "activeTab",
-    "declarativeContent"
+    "declarativeContent",
+    "scripting",
+    "storage"
   ],
   "host_permissions": [
     "*://web.whatsapp.com/*",
-    "*://whatsapp.com/*"
+    "*://whatsapp.com/*",
+    "*://api.bpcruzeiros.com/*"
   ],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"

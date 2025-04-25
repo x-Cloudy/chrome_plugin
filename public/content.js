@@ -24,4 +24,34 @@ const injectReact = async () => {
   }
 };
 
+window.addEventListener('message', (event) => {
+  if (event.data.type === 'EXTENSION_LOGIN') {
+
+    chrome.runtime.sendMessage({
+      type: 'LOGIN',
+      payload: event.data.payload
+    }, (response) => {
+      window.postMessage({
+        type: 'EXTENSION_LOGIN_RESPONSE',
+        payload: response
+      }, '*');
+    });
+  }
+});
+
+window.addEventListener('message', (event) => {
+  if (event.data.type === 'EXTENSION_ME') {
+
+    chrome.runtime.sendMessage({
+      type: 'ME',
+      payload: null
+    }, (response) => {
+      window.postMessage({
+        type: 'EXTENSION_ME_RESPONSE',
+        payload: response
+      }, '*');
+    });
+  }
+});
+
 setTimeout(injectReact, 3000);
