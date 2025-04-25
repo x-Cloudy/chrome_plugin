@@ -42,7 +42,7 @@ export class LoginService {
       if (event.data.payload.success) {
         promise.resolve(event.data.payload.data);
       } else {
-        promise.reject(event.data.payload.error);
+        promise.reject(event.data.payload);
       }
     }
   }

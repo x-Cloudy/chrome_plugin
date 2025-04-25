@@ -1,10 +1,12 @@
 import './popup.css'
 import Login from '../Login/Login';
 import React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AuthContext } from '../../context/authContext';
 
 const Popup = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const authStore = useContext(AuthContext);
 
   return (
     <div
@@ -22,7 +24,7 @@ const Popup = () => {
         <div style={{ display: 'flex', justifyContent: 'end', alignContent: 'center' }}>
           {isOpen && <button className='close-btn' onClick={() => setIsOpen(false)}>X</button>}
         </div>
-        <Login />
+        {!authStore.getter.isLogged() && <Login />}
       </div>
       }
     </div>

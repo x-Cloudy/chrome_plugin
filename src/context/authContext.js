@@ -1,17 +1,25 @@
 import { createContext, useState } from "react";
 
-const AuthContext = createContext(null);
+export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
 
-  const handleUser = (userPayload) => {
+  const handleSetUser = (userPayload) => {
     setUser(userPayload)
   }
 
+  const handleSetToken = (token) => {
+    setToken(token)
+  }
+
+  const getter = {
+    isLogged: () => user.id && token,
+  }
+
   return (
-    <AuthContext.Provider value={{user, handleUser}}>
+    <AuthContext.Provider value={{user, getter, handleSetUser, handleSetToken}}>
       {children}
     </AuthContext.Provider>
   )

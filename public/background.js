@@ -29,9 +29,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     })
       .then(res => res.json())
       .then((data) => {
-        sendResponse({ success: true, data })
-        chrome.storage.local.set({ token: data.access_token })
-        chrome.storage.local.set({ user: data.user })
+        if (typeof data.access_token !== 'undefined') {
+          sendResponse({ success: true, data })
+          chrome.storage.local.set({ token: data.access_token })
+          chrome.storage.local.set({ user: data.user })
+        } else {
+          sendResponse({ success: false, data })
+        }
       })
       .catch(err => sendResponse({ success: false, error: err }));
     return true;
@@ -56,8 +60,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       })
         .then(res => res.json())
         .then((data) => {
-          sendResponse({ success: true, data })
-          chrome.storage.local.set({ user: data.user })
+          if (typeof data.access_token !== 'undefined') {
+            sendResponse({ success: true, data })
+            chrome.storage.local.set({ user: data.user })
+          } else {
+            sendResponse({ success: false, data })
+          }
         })
         .catch(err => sendResponse({ success: false, error: err }));
     }).catch(err => sendResponse({ success: false, error: err }));
