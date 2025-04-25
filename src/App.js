@@ -1,4 +1,4 @@
-import Popup from './Popup';
+import Popup from './components/Popup/Popup';
 import './App.css';
 
 function App() {
