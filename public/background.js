@@ -60,12 +60,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       })
         .then(res => res.json())
         .then((data) => {
-          if (typeof data.access_token !== 'undefined') {
-            sendResponse({ success: true, data })
-            chrome.storage.local.set({ user: data.user })
-          } else {
-            sendResponse({ success: false, data })
-          }
+          sendResponse({ success: true, data })
+          chrome.storage.local.set({ user: data.user })
         })
         .catch(err => sendResponse({ success: false, error: err }));
     }).catch(err => sendResponse({ success: false, error: err }));

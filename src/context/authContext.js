@@ -1,10 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
+  const [isLogged, setIsLogged] = useState(false);
 
   const handleSetUser = (userPayload) => {
     setUser(userPayload)
@@ -14,12 +15,12 @@ const AuthProvider = ({ children }) => {
     setToken(token)
   }
 
-  const getter = {
-    isLogged: () => user.id && token,
-  }
+  useEffect(() => {
+    setIsLogged((!!user.id && !!token))
+  }, [user, token])
 
   return (
-    <AuthContext.Provider value={{user, getter, handleSetUser, handleSetToken}}>
+    <AuthContext.Provider value={{user, handleSetUser, handleSetToken, isLogged}}>
       {children}
     </AuthContext.Provider>
   )

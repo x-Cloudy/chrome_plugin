@@ -54,4 +54,20 @@ window.addEventListener('message', (event) => {
   }
 });
 
+window.addEventListener('message', async (event) => {
+  if (event.data.type === 'GET_TOKEN') {
+    const getToken = async () => {
+      const result = await chrome.storage.local.get(['token']);
+      if (result) {
+        return result.token;
+      }
+    };
+
+    window.postMessage({
+      type: 'GET_TOKEN_RESPONSE',
+      payload: await getToken()
+    }, '*')
+  }
+})
+
 setTimeout(injectReact, 3000);
