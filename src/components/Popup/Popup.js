@@ -1,30 +1,17 @@
 import './popup.css'
-import Login from '../Login/Login';
+import Main from '../../pages/Main/Main';
 import React from 'react';
-import { LoginService } from '../../service/login.service';
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/authContext';
+import { PagesContext } from '../../context/pagesContext';
 
 const Popup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const authStore = useContext(AuthContext);
+  const pageStore = useContext(PagesContext);
 
   useEffect(() => {
-    const service = new LoginService()
-    const fetch = async () => {
-      try {
-        const user = await service.me();
-        const token = await service.getToken();
-        authStore.handleSetUser(user)
-        authStore.handleSetToken(token)
-      } catch (error) {
-       console.log('me error:', error) 
-      }
-    }
-
-    fetch();
-
-    console.log('isAuth', authStore.isLogged)
+    authStore.loadAuth();
   }, [authStore.isLogged])
 
   return (
@@ -40,10 +27,13 @@ const Popup = () => {
       }
 
       {isOpen && <div style={{ height: '100%', width: '100%' }}>
-        <div style={{ display: 'flex', justifyContent: 'end', alignContent: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'justify-spacebetween', alignContent: 'center' }}>
           {isOpen && <button className='close-btn' onClick={() => setIsOpen(false)}>X</button>}
+          {isOpen && <button className='close-btn' onClick={() => pageStore('home')}>
+            Home
+          </button>}
         </div>
-        {!authStore.isLogged && <Login />}
+        <Main />
       </div>
       }
     </div>

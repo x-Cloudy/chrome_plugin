@@ -39,6 +39,17 @@ window.addEventListener('message', (event) => {
   }
 });
 
+window.addEventListener('message', async (event) => {
+  if (event.data.type === 'EXTENSION_LOGOUT') {
+    await chrome.storage.local.clear();
+    
+    window.postMessage({
+      type: 'EXTENSION_LOGOUT_RESPONSE',
+      payload: {success: true, mensage: 'Usúario desconectado'}
+    }, '*')
+  }
+})
+
 window.addEventListener('message', (event) => {
   if (event.data.type === 'EXTENSION_ME') {
 

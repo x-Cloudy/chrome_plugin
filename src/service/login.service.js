@@ -17,6 +17,24 @@ export class LoginService {
     });
   }
 
+  async logout() {
+    return new Promise((resolve, reject) => {
+      window.postMessage({
+        type: 'EXTENSION_LOGOUT',
+        payload: null,
+      }, '*');
+
+      const listener = (event) => this.messageListener({
+        event,
+        type: 'EXTENSION_LOGOUT_RESPONSE',
+        promise: { resolve, reject },
+        listener
+      });
+
+      window.addEventListener('message', listener)
+    })
+  }
+
   async me() {
     return new Promise((resolve, reject) => {
       window.postMessage({
