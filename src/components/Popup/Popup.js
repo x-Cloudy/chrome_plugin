@@ -1,4 +1,5 @@
 import './popup.css'
+import logo from '../../assets/mainLogo.jpg'
 import Main from '../../pages/Main/Main';
 import React from 'react';
 import { useState, useContext, useEffect } from 'react';
@@ -18,7 +19,7 @@ const Popup = () => {
     <div
       className='main-pop'
       style={isOpen ?
-        { width: '300px', height: '500px', padding: '1rem' } :
+        { width: '300px', height: '500px', padding: '1rem', borderRadius: '6px' } :
         { width: '80px', height: '30px', borderRadius: '5px' }}>
       {!isOpen &&
         <div style={{ height: '30px', width: '100%', display: 'flex', justifyContent: 'end' }}>
@@ -26,15 +27,20 @@ const Popup = () => {
         </div>
       }
 
-      {isOpen && <div style={{ height: '100%', width: '100%' }}>
-        <div style={{ display: 'flex', justifyContent: 'justify-spacebetween', alignContent: 'center' }}>
-          {isOpen && <button className='close-btn' onClick={() => setIsOpen(false)}>X</button>}
-          {isOpen && <button className='close-btn' onClick={() => pageStore('home')}>
-            Home
-          </button>}
+      {isOpen &&
+        <div style={{ height: '100%', width: '100%' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center', marginBottom: '2rem' }}>
+            {isOpen && authStore.isLogged && <button className='home-btn' onClick={() => pageStore.setCurrentPage('home')}>
+              <img src={logo} alt="logo" style={{width: '50px'}} />
+            </button>}
+
+            {isOpen && <button className='close-btn' onClick={() => setIsOpen(false)}>X</button>}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
+            <Main />
+            <div style={{ height: '40px', width: '100%', backgroundColor: 'blue' }}>x</div>
+          </div>
         </div>
-        <Main />
-      </div>
       }
     </div>
   );
