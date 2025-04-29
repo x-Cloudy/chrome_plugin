@@ -68,3 +68,19 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
   return true;
 });
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.type === "FETCH_IMAGE") {
+    fetch(request.payload.url)
+      .then(res => res.blob())
+      .then((blob) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          sendResponse({ success: true, data: reader.result })
+        };
+        reader.readAsDataURL(blob);
+      })
+      .catch(err => sendResponse({ success: false, error: err }));
+    return true;
+  }
+});

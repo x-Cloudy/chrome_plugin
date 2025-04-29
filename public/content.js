@@ -6,7 +6,7 @@ const injectReact = async () => {
 
   try {
     const manifest = await fetch(chrome.runtime.getURL('asset-manifest.json')).then(res => res.json());
-    
+
     const cssPath = manifest.files["main.css"].replace('./', '');
     const jsPath = manifest.files["main.js"].replace('./', '');
 
@@ -42,10 +42,10 @@ window.addEventListener('message', (event) => {
 window.addEventListener('message', async (event) => {
   if (event.data.type === 'EXTENSION_LOGOUT') {
     await chrome.storage.local.clear();
-    
+
     window.postMessage({
       type: 'EXTENSION_LOGOUT_RESPONSE',
-      payload: {success: true, mensage: 'Usúario desconectado'}
+      payload: { success: true, mensage: 'Usúario desconectado' }
     }, '*')
   }
 })
@@ -80,5 +80,24 @@ window.addEventListener('message', async (event) => {
     }, '*')
   }
 })
+
+window.addEventListener('message', (event) => {
+  if (event.data.type === 'EXTENSION_FETCH_IMAGE') {
+    if (!event.data.payload.url) return;
+
+    chrome.runtime.sendMessage({
+      type: 'FETCH_IMAGE',
+      payload: event.data.payload
+    }, (response) => {
+      if (response.success) {
+        const img = document.querySelector('#' + event.data.payload.id);
+        if (img) {
+          console.log('carregou imagem')
+          img.src = response.data;
+        }
+      }
+    });
+  }
+});
 
 setTimeout(injectReact, 3000);

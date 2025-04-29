@@ -1,6 +1,7 @@
 .main-pop {
   transition: width .4s ease, height .4s ease;
   border-radius: 6px;
+  overflow: hidden;
 }
 
 .open-btn {
