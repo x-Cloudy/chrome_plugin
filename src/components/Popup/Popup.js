@@ -2,6 +2,7 @@ import './popup.css'
 import Main from '../../pages/Main/Main';
 import React from 'react';
 import FetchImage from '../../service/loadImage.service';
+import OpenBtn from '../Buttons/Open_btn/OpenBtn'
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/authContext';
 import { PagesContext } from '../../context/pagesContext';
@@ -30,12 +31,10 @@ const Popup = () => {
     <div
       className='main-pop'
       style={isOpen ?
-        { width: '300px', height: '500px', padding: '1rem', borderRadius: '6px' } :
-        { width: '80px', height: '30px', borderRadius: '5px' }}>
+        { width: '300px', height: '500px', padding: '1rem', borderRadius: '6px', backgroundColor: 'white' } :
+        { width: '120px', height: '41px', border: 'none !important', boxShadow: 'none' }}>
       {!isOpen &&
-        <div style={{ height: '30px', width: '100%', display: 'flex', justifyContent: 'end' }}>
-          <button className='open-btn' onClick={() => setIsOpen(true)}>ABRIR</button>
-        </div>
+        <OpenBtn onBtnClick={() => setIsOpen(true)} />
       }
 
       {isOpen &&

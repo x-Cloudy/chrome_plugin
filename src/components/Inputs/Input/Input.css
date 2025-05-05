@@ -1,0 +1,27 @@
+.input-custom {
+  width: 100%;
+  height: 40px;
+  padding: 0.5rem 0rem 0 0.5rem;
+}
+
+.label-custom {
+  position: absolute;
+  margin-left: 0.6rem;
+  transition: all .4s ease;
+}
+
+.label-custom-active {
+  position: absolute;
+  margin-left: 0.6rem;
+  font-size: 13px;
+  margin-top: -1.2rem;
+  transition: all .4s ease;
+}
+
+.input-box {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+}

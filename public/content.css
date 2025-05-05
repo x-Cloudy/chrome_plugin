@@ -1,11 +1,11 @@
 #my-extension-root {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 70px;
+  right: 5px;
   width: auto;
   color: black;
   height: auto;
   z-index: 9999;
-  background: white;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  background-color: transparent;
+  border: none;
 }

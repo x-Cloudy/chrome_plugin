@@ -1,4 +1,5 @@
 import { LoginPage } from "../Login/LoginPage";
+import { LeadsPage } from "../Leads/LeadsPage"
 import HomePage from "../Home/HomePage";
 import QrCode from "../QRCODE/QrCode";
 import { useContext, useEffect } from "react";
@@ -18,6 +19,9 @@ const Main = () => {
       case 'home':
         return <HomePage />
 
+      case 'Reservas': 
+        return <LeadsPage />
+
       case 'qrcode':
         return <QrCode />
 
@@ -27,7 +31,7 @@ const Main = () => {
   }
 
   return (
-    <div style={{width: '100%', height: '75%', display: 'flex'}}>
+    <div style={{width: '100%', height: '75%', display: 'flex', justifyContent: 'center', alignItems: 'start'}}>
       {!authStore.isLogged ? <LoginPage /> : pageSwitcher(pageStore.page)}
     </div>
   )
