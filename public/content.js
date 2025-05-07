@@ -100,4 +100,17 @@ window.addEventListener('message', (event) => {
   }
 });
 
+window.addEventListener('message', (event) => {
+  if (event.data.type === 'EXTENSION_QUOTE_CREATE') {
+    if (!event.data.payload) return;
+
+    chrome.runtime.sendMessage({
+      type: 'QUOTE_CREATE',
+      payload: event.data.payload
+    }, (response) => {
+      window.postMessage('EXTENSION_QUOTE_CREATE_RESPONSE')
+    });
+  }
+});
+
 setTimeout(injectReact, 3000);

@@ -19,6 +19,32 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  const getToken = async () => {
+    const result = await chrome.storage.local.get(['token']);
+    return result.token;
+  };
+
+  if (request.type === "QUOTE_CREATE") {
+    getToken().then((token) => {
+      fetch("https://api.bpcruzeiros.com/admin/quotes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(request.payload.form)
+      })
+        .then(res => res.json())
+        .then((data) => {
+          console.log('fetch response', data)
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+  return true;
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === "LOGIN") {
     fetch("https://api.bpcruzeiros.com/api/auth/login", {
       method: "POST",
