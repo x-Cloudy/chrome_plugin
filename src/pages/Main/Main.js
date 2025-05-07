@@ -26,7 +26,7 @@ const Main = () => {
         return <QrCode />
 
       default:
-        return null;
+        return <HomePage />;
     }
   }
 

@@ -3,6 +3,7 @@ import Main from '../../pages/Main/Main';
 import React from 'react';
 import FetchImage from '../../service/loadImage.service';
 import OpenBtn from '../Buttons/Open_btn/OpenBtn'
+import { IoExitOutline } from "react-icons/io5";
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/authContext';
 import { PagesContext } from '../../context/pagesContext';
@@ -48,14 +49,20 @@ const Popup = () => {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
             <Main />
-            {authStore.isLogged && <div style={{ height: '50px', width: '100%', display: 'flex' }}>
-              <img src='' id='user_avatar' alt="foto de usuario" style={{ width: '50px', borderRadius: '50%', aspectRatio: 4 / 4, marginRight: '1rem' }} />
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', justifyContent: 'center'}}>
-                <p style={{ textTransform: 'capitalize' }}>
-                  {`${authStore.user.name.toLowerCase()} ${authStore.user.last_name.toLowerCase()}`}
-                </p>
-                <p style={{color: 'grey'}}>{authStore.user.roles[0]}</p>
+            {authStore.isLogged && <div style={{ height: '50px', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex'}}>
+                <img src='' id='user_avatar' alt="foto de usuario" style={{ width: '50px', borderRadius: '50%', aspectRatio: 4 / 4, marginRight: '1rem' }} />
+
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', justifyContent: 'center' }}>
+                  <p style={{ textTransform: 'capitalize', fontSize: '15px' }}>
+                  {`${authStore.user?.name?.toLowerCase() || ''} ${authStore.user?.last_name?.toLowerCase() || ''}`}
+                  </p>
+                </div>
+                
               </div>
+              <button onClick={() => authStore.logout()} style={{ fontSize: '17px', marginRight: '1rem'}}>
+                <IoExitOutline />
+              </button>
             </div>}
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { LoginService } from "../../service/login.service";
 import { AuthContext } from "../../context/authContext";
+import "./Login.css"
 
 const Login = () => {
   const [message, setMessage] = useState("");
@@ -31,10 +32,20 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="email" type="text" placeholder="Email" />
-      <input name="password" type="password" placeholder="Senha" />
-      <button type="submit">Login</button>
+    <form onSubmit={handleSubmit}
+      style={{ display: 'flex', flexDirection: 'column', width: '100%', gap: '1rem 0', padding: '0 1rem' }}>
+
+      <div style={{ display: 'flex', flexDirection: 'column'}}>
+        <label className="label-custom-login" htmlFor="email">Email</label>
+        <input className="input-custom-login" id="email" name="email" type="text" placeholder="Email" />
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column'}}>
+        <label className="label-custom-login" htmlFor="password">Password</label>
+        <input className="input-custom-login" id="password" name="password" type="password" placeholder="Senha" />
+      </div>
+
+      <button className="login-btn" type="submit">Login</button>
       {isLoading ? "Carregando..." : message}
     </form>
   );
