@@ -1,4 +1,4 @@
-import Popup from './components/Popup/Popup';
+import SideBar from './components/SideBar/SideBar.jsx'
 import AuthProvider from './context/authContext';
 import { PagesProvider } from './context/pagesContext';
 import './App.css';
@@ -7,7 +7,7 @@ function App() {
   return (
     <AuthProvider>
       <PagesProvider>
-        <Popup />
+        <SideBar />
       </PagesProvider>
     </AuthProvider>
   )

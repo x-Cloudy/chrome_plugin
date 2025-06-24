@@ -1,11 +1,22 @@
 const injectReact = async () => {
+  console.log('app running')
 
-  const app = document.createElement('div');
-  app.id = 'my-extension-root';
-  document.body.appendChild(app);
+  const side_bar = document.createElement('div');
+
+  side_bar.id = 'extension-side-bar';
+
+  document.body.appendChild(side_bar);
 
   try {
-    const manifest = await fetch(chrome.runtime.getURL('asset-manifest.json')).then(res => res.json());
+    const main_div = document.querySelector('#app');
+    main_div.style.padding = '50px 60px 0px 0px'
+    
+    if (main_div) {
+      console.log('main div', main_div);
+    }
+
+    const manifest = await fetch(chrome.runtime.getURL('asset-manifest.json'))
+      .then(res => res.json());
 
     const cssPath = manifest.files["main.css"].replace('./', '');
     const jsPath = manifest.files["main.js"].replace('./', '');

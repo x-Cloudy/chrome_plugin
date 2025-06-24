@@ -1,8 +1,8 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-const root = document.getElementById('my-extension-root');
-if (root) {
-  ReactDOM.createRoot(root).render(<App />);
+const side_extension = document.getElementById('extension-side-bar')
+
+if (side_extension) {
+  ReactDOM.createRoot(side_extension).render(<App />);
 }
