@@ -1,6 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 
-export const PagesContext = createContext(null);
+const PagesContext = createContext(null);
 
 export const PagesProvider = ({ children }) => {
   const [page, setPage] = useState('home');
@@ -14,4 +14,10 @@ export const PagesProvider = ({ children }) => {
       {children}
     </PagesContext.Provider>
   )
+}
+
+export function usePages() {
+  const ctx = useContext(PagesContext)
+  if (!ctx) throw new Error('usePages must be used within a PagesProvider')
+  return ctx
 }

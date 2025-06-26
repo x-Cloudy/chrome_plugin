@@ -1,7 +1,22 @@
+const waitForElement = (selector) => {
+  return new Promise(resolve => {
+    const interval = setInterval(() => {
+      const el = document.querySelector(selector);
+      if (el) {
+        clearInterval(interval);
+        resolve(el);
+      }
+    }, 100);
+  });
+};
+
 const injectReact = async () => {
   console.log('app running')
 
   const side_bar = document.createElement('div');
+  const current_extension_page = document.createElement('div');
+
+  current_extension_page.id = 'current_extension_page';
 
   side_bar.id = 'extension-side-bar';
 
@@ -10,10 +25,11 @@ const injectReact = async () => {
   try {
     const main_div = document.querySelector('#app');
     main_div.style.padding = '50px 60px 0px 0px'
-    
-    if (main_div) {
-      console.log('main div', main_div);
-    }
+
+    waitForElement('.x78zum5.xdt5ytf.x5yr21d').then(el => {
+      console.log('Elemento encontrado:', el);
+      el.appendChild(current_extension_page)
+    });
 
     const manifest = await fetch(chrome.runtime.getURL('asset-manifest.json'))
       .then(res => res.json());
