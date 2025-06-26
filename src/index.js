@@ -14,8 +14,8 @@ document.body.appendChild(hiddenRoot)
 function RootWrapper() {
   return (
     <PagesProvider>
-      {sideExtension && createPortal(<App />, sideExtension)}
       {currentPageEl && createPortal(<CurrentPage />, currentPageEl)}
+      {sideExtension && createPortal(<App />, sideExtension)}
     </PagesProvider>
   )
 }

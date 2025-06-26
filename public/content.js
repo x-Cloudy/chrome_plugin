@@ -17,19 +17,21 @@ const injectReact = async () => {
   const current_extension_page = document.createElement('div');
 
   current_extension_page.id = 'current_extension_page';
-
   side_bar.id = 'extension-side-bar';
 
   document.body.appendChild(side_bar);
 
+  await waitForElement('._aig-._as6h').then(el => {
+    if (el) {
+      el.style.display = 'flex';
+      el.style.flexWrap = 'nowrap';
+    }
+    el.appendChild(current_extension_page)
+  });
+
   try {
     const main_div = document.querySelector('#app');
     main_div.style.padding = '50px 60px 0px 0px'
-
-    waitForElement('.x78zum5.xdt5ytf.x5yr21d').then(el => {
-      console.log('Elemento encontrado:', el);
-      el.appendChild(current_extension_page)
-    });
 
     const manifest = await fetch(chrome.runtime.getURL('asset-manifest.json'))
       .then(res => res.json());
