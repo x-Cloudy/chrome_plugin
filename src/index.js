@@ -1,5 +1,3 @@
-// index.tsx
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createPortal } from 'react-dom'
 import App from './App'
@@ -22,5 +20,4 @@ function RootWrapper() {
   )
 }
 
-// Finalmente, monta tudo numa única root
 ReactDOM.createRoot(hiddenRoot).render(<RootWrapper />)
