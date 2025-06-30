@@ -4,7 +4,7 @@ import { LoginService } from "../service/login.service";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [token, setToken] = useState('');
   const [isLogged, setIsLogged] = useState(false);
   const service = new LoginService()
@@ -30,12 +30,12 @@ const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     await service.logout();
-    setUser({});
+    setUser(null);
     setToken('')
   }
 
   useEffect(() => {
-    setIsLogged((!!user.id && !!token))
+    setIsLogged(!!user && !!user.id && !!token)
   }, [user, token])
 
   return (
