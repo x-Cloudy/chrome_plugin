@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import App from './App'
 import CurrentPage from './components/CurrentPage/CurrentPage'
 import { PagesProvider } from './context/pagesContext'
+import AuthProvider from './context/authContext'
 
 const sideExtension = document.getElementById('extension-side-bar')
 const currentPageEl = document.getElementById('current_extension_page')
@@ -13,10 +14,12 @@ document.body.appendChild(hiddenRoot)
 
 function RootWrapper() {
   return (
-    <PagesProvider>
-      {currentPageEl && createPortal(<CurrentPage />, currentPageEl)}
-      {sideExtension && createPortal(<App />, sideExtension)}
-    </PagesProvider>
+    <AuthProvider>
+      <PagesProvider>
+        {currentPageEl && createPortal(<CurrentPage />, currentPageEl)}
+        {sideExtension && createPortal(<App />, sideExtension)}
+      </PagesProvider>
+    </AuthProvider>
   )
 }
 

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { usePages } from "../../context/pagesContext";
+import SwitchPage from "../SwitchPage/SwitchPage";
 
 const CurrentPage = () => {
   console.log('current page render');
@@ -11,9 +12,8 @@ const CurrentPage = () => {
   }, [page])
 
   return (
-    <div style={page === 'chat' ? { width: '400px'} : { width: '0px' }}>
-      teste
-      <p>fasdfasdfasdf</p>
+    <div style={page !== '' ? { width: '400px'} : { width: '0px' }}>
+      <SwitchPage />
     </div>
   );
 }

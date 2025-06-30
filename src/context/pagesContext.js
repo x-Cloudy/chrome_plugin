@@ -3,7 +3,7 @@ import { createContext, useState, useContext } from "react";
 const PagesContext = createContext(null);
 
 export const PagesProvider = ({ children }) => {
-  const [page, setPage] = useState('home');
+  const [page, setPage] = useState('');
 
   const setCurrentPage = (page) => {
     setPage(page)
