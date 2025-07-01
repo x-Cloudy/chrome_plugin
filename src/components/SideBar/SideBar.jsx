@@ -58,7 +58,7 @@ const SideBar = () => {
           </button>
 
           <button
-            style={{ background: 'transparent', color: 'white' }}
+            style={{ background: 'transparent', color: 'white', marginLeft: '5px' }}
             className="menu-items"
             onClick={() => {
               authStore.logout();
@@ -71,7 +71,7 @@ const SideBar = () => {
         // Menu deslogado
         <div className="side-container" style={{ width: '60px' }}>
           <div style={{ width: '100%', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-            <img src={new_logo} alt="main logo" style={{ width: '45px', marginBottom: '2rem' }} onClick={() => setCurrentPage('')} />
+            <img src={new_logo} alt="main logo" style={{ width: '45px', marginBottom: '1.5rem' }} onClick={() => setCurrentPage('')} />
 
             <button
               style={page === 'login' ? { background: 'white', color: 'rgba(10, 8, 65, 1)' } : { background: 'transparent', color: 'white' }}

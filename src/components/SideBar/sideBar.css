@@ -8,7 +8,8 @@
   right: 0;
   bottom: 0;
   background: rgba(10, 8, 65, 1);
-  padding: 1rem 0 1rem 0;
+  padding: 0.5rem 0 1rem 0;
+  z-index: 100;
 }
 
 .menu-items {
