@@ -1,4 +1,5 @@
 import { LoginPage } from "../../pages/Login/LoginPage";
+import AddFilter from "../AddFilter/AddFilter";
 
 const SwitchPage = ({ page }) => {
 
@@ -6,6 +7,9 @@ const SwitchPage = ({ page }) => {
     switch (page) {
       case "login":
         return <LoginPage />;
+
+      case "plus":
+        return <AddFilter />;
 
       default:
         return <></>;  
