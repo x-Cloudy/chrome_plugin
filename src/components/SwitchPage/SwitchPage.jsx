@@ -17,7 +17,7 @@ const SwitchPage = ({ page }) => {
   }
 
   return (
-    <div style={{background: 'white', height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    <div style={{background: 'white', height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: '99'}}>
       <Pages />
     </div>
   )

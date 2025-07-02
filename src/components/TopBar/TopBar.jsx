@@ -1,5 +1,5 @@
 import { usePages } from '../../context/pagesContext'
-import './topBar.css'
+import './TopBar.css'
 
 const TopBar = () => {
   const menuOption = ['Todas', 'Não Lidas', 'Respondeu', 'Não Respondeu', 'Concluídos']

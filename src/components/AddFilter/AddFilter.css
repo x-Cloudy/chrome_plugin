@@ -12,6 +12,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-bottom: 1rem;
 }
 
 .title-page {
@@ -19,4 +20,35 @@
   font-weight: 700;
   font-size: 20px;
   color: rgba(10, 8, 65, 1);
+}
+
+.list-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.list-items-row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.item-icon {
+  color: rgba(150, 150, 150, 1);
+  font-size: 20px;
+}
+
+.filter-text {
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: rgba(0, 0, 0, 1);
+  margin-left: 0.5rem;
 }
