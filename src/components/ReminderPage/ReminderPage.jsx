@@ -1,21 +1,20 @@
 import { useState } from "react";
 import CloseBtn from "../Buttons/CloseBtn";
-import ContactInfoPage from "../../pages/ContatactInfoPage/ContatactInfoPage";
-import Notes from "../../pages/Annotations/AnnotationsPage"
-import './ContactInfo.css'
+import './ReminderPage.css'
+import bgChat from "../../assets/bgChat"
 
-const menuOptions = ['Perfil', 'Anotaçãoes', 'Informações básicas']
+const menuOptions = ['Caixa de Entrada', 'Próximo Lembrete']
 
 const ContactInfo = () => {
-  const [selectedMenu, setSelectedMenu] = useState('Perfil');
+  const [selectedMenu, setSelectedMenu] = useState('Caixa de Entrada');
 
   const pageSwitcher = (menu) => {
     switch (menu) {
-      case 'Perfil':
-        return <ContactInfoPage />;
+      case 'Caixa de Entrada':
+        return ;
 
-      case 'Anotaçãoes':
-        return <Notes/>;
+      case 'Próximo Lembrete':
+        return ;
 
       default:
         return <></>
@@ -23,6 +22,14 @@ const ContactInfo = () => {
   }
 
   return (
+    <div className="container"
+      style={{
+        backgroundImage: `url(${bgChat})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        width: "465px",
+        backgroundSize: "cover",
+      }}>
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', padding: '1rem', alignItems: 'start' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem', width: '100%' }}>
         <div>
@@ -39,6 +46,7 @@ const ContactInfo = () => {
       </div>
 
       {pageSwitcher(selectedMenu)}
+    </div>
     </div>
   )
 }
