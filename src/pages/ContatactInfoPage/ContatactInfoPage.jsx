@@ -79,6 +79,20 @@ const ContactInfoPage = () => {
         type={'select'}
         onChange={(e) => handleChange(e)}
         options={activityOpitons} />
+
+      <h5 className="contact-title">informações da empresa</h5>
+
+      <InputController label={'Nome'} field={'enterprise_name'} placeholder={'Nome da empresa'} onChange={(e) => handleChange(e)} />
+
+      <InputController label={'Posição'} field={'enterprise_position'} placeholder={'Nome da empresa'} onChange={(e) => handleChange(e)} />
+
+      <h5 className="contact-title">tempo de acompanhamento</h5>
+
+      <InputController type={'date'} label={'Contato em'}
+        field={'chatOn'} onChange={(e) => handleChange(e)} />
+
+      <InputController type={'date'} label={'Editar em'}
+        field={'EditOn'}  onChange={(e) => handleChange(e)} />
     </div>
   )
 }
