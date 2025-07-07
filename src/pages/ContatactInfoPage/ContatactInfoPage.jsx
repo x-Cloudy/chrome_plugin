@@ -5,25 +5,39 @@ import './ContactInfoPage.css'
 const ContactInfoPage = () => {
   const [data, setData] = useState({})
 
+  const activityOpitons = [
+    { value: 'option 1', label: 'Option 1' },
+    { value: 'option 2', label: 'Option 2' },
+    { value: 'option 3', label: 'Option 3' }
+  ]
+
   useEffect(() => {
     console.log('data', data)
   }, [data])
 
   const handleChange = (e) => {
-    setData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    })
-    )
+    if ('select' in e) {
+      setData((prev) => ({
+        ...prev,
+        [e.name]: e.value
+      })
+      )
+    } else {
+      setData((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.value
+      })
+      )
+    }
   }
 
   return (
     <div style={{ width: '100%', height: '100%', color: 'black' }}>
       <h5 className="contact-title">informações de contato</h5>
 
-      <InputController label={'Nome'} field={'Name'} placeholder={'Nome completo'} onChange={(e) => handleChange(e)} />
+      <InputController label={'Nome'} field={'name'} placeholder={'Nome completo'} onChange={(e) => handleChange(e)} />
 
-      <InputController label={'Telefone'} field={'Phone'} placeholder={'+55 00 000000-0000'} onChange={(e) => handleChange(e)} />
+      <InputController label={'Telefone'} field={'phone'} placeholder={'+55 00 000000-0000'} onChange={(e) => handleChange(e)} />
 
       <InputController type={'date'} label={'Aniversário'} field={'birthdate'} placeholder={'Aniversário'} onChange={(e) => handleChange(e)} />
 
@@ -34,7 +48,37 @@ const ContactInfoPage = () => {
 
       <h5 className="contact-title">informações de venda</h5>
 
-      <InputController label={'País'} placeholder={'País'} onChange={(e) => handleChange(e)} />
+      <InputController
+        label={'Atividade'}
+        field={'activity'}
+        placeholder={''}
+        type={'select'}
+        onChange={(e) => handleChange(e)}
+        options={activityOpitons} />
+
+      <InputController
+        label={'Fase'}
+        field={'fase'}
+        placeholder={''}
+        type={'select'}
+        onChange={(e) => handleChange(e)}
+        options={activityOpitons} />
+
+      <InputController
+        label={'Nível'}
+        field={'nivel'}
+        placeholder={''}
+        type={'select'}
+        onChange={(e) => handleChange(e)}
+        options={activityOpitons} />
+
+      <InputController
+        label={'Fonte'}
+        field={'fonte'}
+        placeholder={''}
+        type={'select'}
+        onChange={(e) => handleChange(e)}
+        options={activityOpitons} />
     </div>
   )
 }

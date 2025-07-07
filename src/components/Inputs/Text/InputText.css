@@ -1,0 +1,8 @@
+.input-text-custom {
+  width: 280px;
+  height: 38px;
+  padding-left: .5rem;
+  border: 1px solid rgba(217, 217, 217, 1);
+  border-radius: 3px;
+  color: rgba(181, 181, 181, 1);
+}
