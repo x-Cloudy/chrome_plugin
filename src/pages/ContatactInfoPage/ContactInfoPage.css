@@ -10,3 +10,33 @@
   margin-bottom: 1rem;
   margin-top: 1rem;
 }
+
+.action-btn-redefinir {
+  width: 76px;
+  height: 32px;
+  border-radius: 50px;
+  color: white;
+  background: rgba(63, 163, 63, 1);
+  font-family: Roboto;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+}
+
+.action-btn-save {
+  width: 76px;
+  height: 32px;
+  border-radius: 50px;
+  color: white;
+  background: rgba(10, 8, 65, 1);
+  font-family: Roboto;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+}

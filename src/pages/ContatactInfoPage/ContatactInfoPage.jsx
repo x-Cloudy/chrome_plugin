@@ -32,7 +32,7 @@ const ContactInfoPage = () => {
   }
 
   return (
-    <div style={{ width: '100%', height: '100%', color: 'black' }}>
+    <div style={{ width: '100%', height: '100%', color: 'black', overflowY: 'scroll', overflowX: 'hidden' }}>
       <h5 className="contact-title">informações de contato</h5>
 
       <InputController label={'Nome'} field={'name'} placeholder={'Nome completo'} onChange={(e) => handleChange(e)} />
@@ -93,6 +93,11 @@ const ContactInfoPage = () => {
 
       <InputController type={'date'} label={'Editar em'}
         field={'EditOn'}  onChange={(e) => handleChange(e)} />
+
+        <div style={{ display: 'flex', width: '100%', justifyContent: 'end', gap: '1rem', marginTop: '2rem'}}>
+          <button className='action-btn-redefinir'>Redefinir</button>
+          <button className='action-btn-save'>Salvar</button>
+        </div>
     </div>
   )
 }
