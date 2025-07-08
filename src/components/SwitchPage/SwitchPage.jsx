@@ -1,6 +1,8 @@
 import { LoginPage } from "../../pages/Login/LoginPage";
 import AddFilter from "../AddFilter/AddFilter";
 import ContactInfo from "../ContactInfo/ContactInfo";
+import ChatStartPage from "../../pages/Chat/ChatPage";
+import ReminderPage from "../ReminderPage/ReminderPage";
 
 const SwitchPage = ({ page }) => {
 
@@ -9,8 +11,14 @@ const SwitchPage = ({ page }) => {
       case "login":
         return <LoginPage />;
 
+      case "chat":
+        return <ChatStartPage />;  
+
       case "plus":
         return <AddFilter />;
+
+      case "notes":
+        return <ReminderPage />;
 
       case "infos": 
         return <ContactInfo />

@@ -5,7 +5,7 @@ import bgChat from "../../assets/bgChat"
 
 const menuOptions = ['Caixa de Entrada', 'Próximo Lembrete']
 
-const ContactInfo = () => {
+const ReminderPage = () => {
   const [selectedMenu, setSelectedMenu] = useState('Caixa de Entrada');
 
   const pageSwitcher = (menu) => {
@@ -51,4 +51,4 @@ const ContactInfo = () => {
   )
 }
 
-export default ContactInfo;
+export default ReminderPage;

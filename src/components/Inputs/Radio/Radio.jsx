@@ -6,7 +6,7 @@ const Radio = ({
   onChange
 }) => {
   return (
-    <div style={{ width: '280px', height: '30px', display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
+    <div style={{ width: '100%', height: '30px', display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
       {radio_options.map((item) => {
         return (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>

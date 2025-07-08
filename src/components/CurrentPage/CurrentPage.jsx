@@ -8,7 +8,7 @@ const CurrentPage = () => {
   const authStore = useContext(AuthContext);
 
   const activePageStyle = {
-    width: '400px', 
+    width: '500px', 
     height: '100%', 
     display: 'flex',
     justifyContent: 'center',
