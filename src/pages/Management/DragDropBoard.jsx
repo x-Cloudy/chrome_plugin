@@ -52,6 +52,7 @@ const DragDropBoard = () => {
     e.preventDefault();
     setPosition({ x: e.clientX, y: e.clientY });
     setVisible(true);
+    console.log('xxx', e.target.id)
   }
 
   const onDragEnd = (result) => {
@@ -129,6 +130,7 @@ const DragDropBoard = () => {
                   <Draggable key={item.id} draggableId={item.id} index={index}>
                     {(provided, snapshot) => (
                       <div
+                        id={item.id}
                         onContextMenu={handleAuxClick}
                         ref={provided.innerRef}
                         {...provided.draggableProps}
@@ -139,12 +141,12 @@ const DragDropBoard = () => {
                           ...provided.draggableProps.style,
                         }}
                       >
-                        <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'start', flexDirection: 'column', flex: '1' }}>
-                          <p className="card-title">{item.name}</p>
-                          <p className="card-date">23/03/2025</p>
+                        <div id={item.id} style={{ display: 'flex', justifyContent: 'start', alignItems: 'start', flexDirection: 'column', flex: '1' }}>
+                          <p id={item.id} className="card-title">{item.name}</p>
+                          <p id={item.id} className="card-date">23/03/2025</p>
                         </div>
 
-                        <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'end', flex: '1' }}>
+                        <div id={item.id} style={{ display: 'flex', justifyContent: 'end', alignItems: 'end', flex: '1' }}>
                           <IoAlertCircleSharp className='drag-card-icon' style={{ color: column.color }} />
                         </div>
                       </div>
