@@ -6,10 +6,22 @@
   justify-content: space-between;
   padding: 0 60px 0 1rem;
   top: 0;
-  width: 100%;
   height: 50px;
+  width: 100%;
   background-color: white;
-  z-index: 99;
+  z-index: 400;
+}
+
+.topBar-container-active {
+  position: absolute;
+  display: flex;
+  align-items: start;
+  color: black;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  z-index: 400;
 }
 
 .topBar-menu {
@@ -34,4 +46,35 @@
   text-decoration-color: green;
   text-decoration-thickness: 3px;
   text-underline-offset: 6px;
+}
+
+.management-btn {
+  width: 100px;
+  max-width: 88.23px;
+  height: 30px;
+  background-color: #21C063;
+  color: whitesmoke;
+  border-radius: 50px;
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-right: 15px;
+}
+
+.management-btn:hover {
+  background-color: green;
+}
+
+.dragAndDropPage {
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+}
+
+.managment-active {
+  position: absolute;
+  top: 10px;
+  right: 60px;
 }

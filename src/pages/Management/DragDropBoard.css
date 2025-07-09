@@ -1,0 +1,82 @@
+.board-container {
+  display: flex;
+  gap: 16px;
+  overflow: auto;
+  padding: 16px;
+  min-height: 100vh;
+  background-color: white;
+}
+
+.column {
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  padding: 16px;
+  width: 256px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.column-title {
+  font-weight: bold;
+  font-size: 1.125rem;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.column-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.card {
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: white;
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-bottom: 8px;
+  cursor: move;
+  border-left: 4px solid transparent;
+  height: 80px;
+}
+
+.card-title {
+  font-weight: 500;
+}
+
+.card-date {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.drag-card-icon {
+  font-size: 24px;
+}
+
+.menu-aux-list {
+    position: fixed;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    list-style: none;
+    z-index: 9999;
+    border-radius: 4px;
+    width: 150px;
+}
+
+.menu-aux {
+  width: 100%;
+  height: 25px;
+  color: #252525;
+}
+
+.menu-aux:hover {
+  background: rgba(10, 8, 65, 1);
+  color: white;
+}
+
