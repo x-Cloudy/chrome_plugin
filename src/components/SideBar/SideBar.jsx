@@ -16,7 +16,7 @@ const SideBar = () => {
 
   return (
     <>
-      {authStore.isLogged ? <div className="side-container" style={{ width: '60px' }}>
+      {authStore.isLogged ? <div className="side-container" style={{ width: '55px' }}>
         <div style={{ width: '100%', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
           <img src={new_logo} alt="main logo" style={{ width: '45px', marginBottom: '2rem', cursor: 'pointer' }} onClick={() => setCurrentPage('')} />
 

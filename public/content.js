@@ -31,7 +31,7 @@ const injectReact = async () => {
 
   try {
     const main_div = document.querySelector('#app');
-    main_div.style.padding = '50px 60px 0px 0px'
+    main_div.style.padding = '50px 55px 0px 0px'
 
     const manifest = await fetch(chrome.runtime.getURL('asset-manifest.json'))
       .then(res => res.json());
