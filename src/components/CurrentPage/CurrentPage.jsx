@@ -18,6 +18,7 @@ const CurrentPage = () => {
 
   const getPageStyle = () => {
     if (!page || isAllPage) return { width: '0px' };
+    if (page === 'gerenciar') return { width: '0px' };
     return activePageStyle;
   };
 

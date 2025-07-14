@@ -1,5 +1,6 @@
 import { usePages } from '../../context/pagesContext'
 import DragDropBoard from '../../pages/Management/DragDropBoard';
+import TablePage from '../../pages/Table/Table';
 import './TopBar.css'
 
 const TopBar = () => {
@@ -7,8 +8,26 @@ const TopBar = () => {
   const { filter, setCurrentFilter, isAllPage, setIsAllPage, setCurrentPage, page } = usePages();
 
   const handleClick = () => {
+    if (isAllPage && page !== 'gerenciar') {
+      setCurrentPage('gerenciar');
+      return
+    }
+
     setIsAllPage(!isAllPage);
     setCurrentPage('gerenciar')
+  }
+
+  const topPageSwitcher = () => {
+    switch (page) {
+      case 'gerenciar':
+        return <DragDropBoard />;
+
+      case 'table':
+        return <TablePage />;
+      
+      default:
+        return <></>;
+    }
   }
 
   return (
@@ -27,7 +46,7 @@ const TopBar = () => {
 
       {isAllPage &&
         <div className='topSideCurrentPage'>
-          <DragDropBoard />
+          {topPageSwitcher()}
         </div>
       }
 
