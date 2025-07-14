@@ -1,16 +1,19 @@
-import { useState } from 'react';
 import { usePages } from '../../context/pagesContext'
 import DragDropBoard from '../../pages/Management/DragDropBoard';
 import './TopBar.css'
 
 const TopBar = () => {
   const menuOption = ['Todas', 'Não Lidas', 'Respondeu', 'Não Respondeu', 'Concluídos']
-  const { filter, setCurrentFilter } = usePages();
-  const [isOpen, setIsOpen] = useState(false);
+  const { filter, setCurrentFilter, isAllPage, setIsAllPage, setCurrentPage, page } = usePages();
+
+  const handleClick = () => {
+    setIsAllPage(!isAllPage);
+    setCurrentPage('gerenciar')
+  }
 
   return (
-    <div className={isOpen ? "topBar-container-active" : "topBar-container"}>
-      {!isOpen && <div className='topBar-menu'>
+    <div className={isAllPage ? "topBar-container-active" : "topBar-container"}>
+      {!isAllPage && <div className='topBar-menu'>
         {menuOption.map((item) => {
           return (
             <button
@@ -22,13 +25,17 @@ const TopBar = () => {
         })}
       </div>}
 
-      {isOpen &&
-        <div className='dragAndDropPage'>
+      {isAllPage &&
+        <div className='topSideCurrentPage'>
           <DragDropBoard />
         </div>
       }
 
-      <button onClick={() => setIsOpen(!isOpen)} className={`management-btn${isOpen ? ' managment-active' : ''}`}>Gerenciar</button>
+      <button
+        onClick={() => handleClick()}
+        className={`management-btn${isAllPage ? ' managment-active' : ''}`}>
+        Gerenciar
+      </button>
     </div>
   )
 }

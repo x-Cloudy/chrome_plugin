@@ -1,29 +1,35 @@
 import { useEffect, useContext } from "react";
 import { usePages } from "../../context/pagesContext";
-import SwitchPage from "../SwitchPage/SwitchPage";
 import { AuthContext } from "../../context/authContext";
+import SwitchPage from "../SwitchPage/SwitchPage";
 
 const CurrentPage = () => {
-  const { page } = usePages();
+  const { page, isAllPage } = usePages();
   const authStore = useContext(AuthContext);
 
   const activePageStyle = {
-    width: '500px', 
-    height: '100%', 
+    width: '500px',
+    minWidth: '500px',
+    height: '100%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  };
+
+  const getPageStyle = () => {
+    if (!page || isAllPage) return { width: '0px' };
+    return activePageStyle;
+  };
 
   useEffect(() => {
     authStore.loadAuth();
-  }, [])
+  }, [authStore]);
 
   return (
-    <div style={page !== '' ? activePageStyle : { width: '0px' }}>
+    <div style={getPageStyle()}>
       <SwitchPage page={page} />
     </div>
   );
-}
+};
 
 export default CurrentPage;
