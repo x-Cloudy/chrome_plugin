@@ -2,11 +2,16 @@ import { IoClose } from "react-icons/io5";
 import { usePages } from "../../context/pagesContext";
 
 const CloseBtn = () => {
-  const { setCurrentPage } = usePages()
+  const { setCurrentPage, setIsAllPage } = usePages()
+
+  const reset = () => {
+    setCurrentPage('');
+    setIsAllPage(false);
+  }
 
   return (
     <button
-      onClick={() => setCurrentPage('')}
+      onClick={() => reset()}
       style={{
         background: 'rgba(10, 8, 65, 1)',
         borderRadius: '50%',

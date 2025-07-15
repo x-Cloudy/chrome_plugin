@@ -5,7 +5,13 @@ import './TopBar.css'
 
 const TopBar = () => {
   const menuOption = ['Todas', 'Não Lidas', 'Respondeu', 'Não Respondeu', 'Concluídos']
-  const { filter, setCurrentFilter, isAllPage, setIsAllPage, setCurrentPage, page } = usePages();
+  const {
+    filter,
+    setCurrentFilter,
+    isAllPage,
+    setIsAllPage,
+    setCurrentPage,
+    page } = usePages();
 
   const handleClick = () => {
     if (isAllPage && page !== 'gerenciar') {
@@ -24,7 +30,7 @@ const TopBar = () => {
 
       case 'table':
         return <TablePage />;
-      
+
       default:
         return <></>;
     }
