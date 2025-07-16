@@ -1,4 +1,7 @@
 import CloseBtn from "../../components/Buttons/CloseBtn";
+import { MdEdit, MdDelete } from "react-icons/md";
+import Filters from "./components/Filters";
+
 import "./Table.css"
 
 const TablePage = () => {
@@ -21,7 +24,7 @@ const TablePage = () => {
         <CloseBtn />
       </div>
       <div className="table-filter">
-
+        <Filters />
       </div>
 
       <div className="table-content">
@@ -37,6 +40,7 @@ const TablePage = () => {
               <th>CHD</th>
               <th>Destino</th>
               <th>Desejo</th>
+              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -51,6 +55,14 @@ const TablePage = () => {
                 <td>{item.chd}</td>
                 <td>Nacional</td>
                 <td>Férias</td>
+                <td style={{ width: 'auto', gap: '2rem' }}>
+                  <button className="custom-table-action-btn">
+                    <MdEdit />
+                  </button>
+                  <button style={{color: 'red'}} className="custom-table-action-btn">
+                    <MdDelete />
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
