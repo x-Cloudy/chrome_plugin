@@ -142,4 +142,54 @@ window.addEventListener('message', (event) => {
   }
 });
 
+window.addEventListener('message', (event) => {
+  if (event.data.type === 'EXTENSION_CONTACT_INFO_STORE') {
+    chrome.runtime.sendMessage({
+      type: 'CONTACT_INFO_STORE',
+      payload: event.data.payload
+    }, (response) => {
+      window.postMessage({
+        type: 'EXTENSION_CONTACT_INFO_STORE_RESPONSE',
+        payload: response
+      }, '*');
+    });
+  }
+
+  if (event.data.type === 'EXTENSION_CONTACT_INFO_SHOW') {
+    chrome.runtime.sendMessage({
+      type: 'CONTACT_INFO_SHOW',
+      payload: event.data.payload
+    }, (response) => {
+      window.postMessage({
+        type: 'EXTENSION_CONTACT_INFO_SHOW_RESPONSE',
+        payload: response
+      }, '*');
+    });
+  }
+
+  if (event.data.type === 'EXTENSION_CONTACT_INFO_UPDATE') {
+    chrome.runtime.sendMessage({
+      type: 'CONTACT_INFO_UPDATE',
+      payload: event.data.payload
+    }, (response) => {
+      window.postMessage({
+        type: 'EXTENSION_CONTACT_INFO_UPDATE_RESPONSE',
+        payload: response
+      }, '*');
+    });
+  }
+
+  if (event.data.type === 'EXTENSION_CONTACT_INFO_DELETE') {
+    chrome.runtime.sendMessage({
+      type: 'CONTACT_INFO_DELETE',
+      payload: event.data.payload
+    }, (response) => {
+      window.postMessage({
+        type: 'EXTENSION_CONTACT_INFO_DELETE_RESPONSE',
+        payload: response
+      }, '*');
+    });
+  }
+});
+
 setTimeout(injectReact, 3000);

@@ -1,4 +1,10 @@
 import Radio from '../Radio/Radio'
+<<<<<<< Updated upstream
+=======
+import InputText from '../Text/InputText'
+import InputSelect from '../Select/Select'
+import PhoneInput from '../Phone/PhoneInput'
+>>>>>>> Stashed changes
 import './InputController.css'
 
 const Input = ({
@@ -7,8 +13,38 @@ const Input = ({
   onChange,
   type = 'text',
   field,
+<<<<<<< Updated upstream
   radio_options
 }) => {
+=======
+  radio_options,
+  options,
+  value
+}) => {
+
+  const inputSwitcher = (type) => {
+    switch (type) {
+      case 'text':
+        return <InputText field={field} placeholder={placeholder} onChange={onChange} value={value} />;
+
+      case 'date':
+        return <InputText type={'date'} field={field} placeholder={placeholder} onChange={onChange} value={value} />;
+    
+      case 'radio':
+        return <Radio onChange={onChange} field={field} radio_options={radio_options} value={value} />;
+
+      case 'select':
+        return <InputSelect onChange={onChange} field={field} options={options} placeholder={placeholder} value={value} />;
+        
+      case 'phone':
+        return <PhoneInput onChange={onChange} field={field} />;
+
+      default:
+        return <></>;
+    }
+  }
+
+>>>>>>> Stashed changes
   return (
     <div className='input-container'>
       <p className='input-label'>{label}</p>

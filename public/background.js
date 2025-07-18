@@ -91,8 +91,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         })
         .catch(err => sendResponse({ success: false, error: err }));
     }).catch(err => sendResponse({ success: false, error: err }));
+    return true;
   }
-  return true;
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -109,4 +109,73 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       .catch(err => sendResponse({ success: false, error: err }));
     return true;
   }
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  const getToken = async () => {
+    const result = await chrome.storage.local.get(['token']);
+    return result.token;
+  };
+
+  if (request.type === "CONTACT_INFO_STORE") {
+    getToken().then((token) => {
+      fetch("https://api.bpcruzeiros.com/admin/clientData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(request.payload)
+      })
+        .then(res => res.json())
+        .then((data) => sendResponse({ success: true, data }))
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  if (request.type === "CONTACT_INFO_SHOW") {
+    getToken().then((token) => {
+      fetch(`https://api.bpcruzeiros.com/admin/clientData/${request.payload.id}`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then((data) => sendResponse({ success: true, data }))
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  if (request.type === "CONTACT_INFO_UPDATE") {
+    getToken().then((token) => {
+      fetch(`https://api.bpcruzeiros.com/admin/clientData/${request.payload.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(request.payload.data)
+      })
+        .then(res => res.json())
+        .then((data) => sendResponse({ success: true, data }))
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  if (request.type === "CONTACT_INFO_DELETE") {
+    getToken().then((token) => {
+      fetch(`https://api.bpcruzeiros.com/admin/clientData/${request.payload.id}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then((data) => sendResponse({ success: true, data }))
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  return true;
 });

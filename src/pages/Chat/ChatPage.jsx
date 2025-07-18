@@ -2,8 +2,9 @@ import { useState } from "react";
 import CloseBtn from "../../components/Buttons/CloseBtn";
 import bgChat from "../../assets/bgChat";
 import "./chat.css";
-import { IoAdd } from "react-icons/io5";
 import UserInfo from "../../components/User/UserInfo";
+import PhoneInput from "../../components/Inputs/Phone/PhoneInput";
+
 
 export const ChatStartPage = () => {
   const [ddd, setDdd] = useState("");
@@ -28,7 +29,6 @@ export const ChatStartPage = () => {
         backgroundImage: `url(${bgChat})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        width: "465px",
         backgroundSize: "cover",
       }}
     >
@@ -64,33 +64,18 @@ export const ChatStartPage = () => {
       >
         <div>
           <p className="phone-group">Número do WhatsApp</p>
-          <div className="phone-input-wrapper">
-            <div className="ddd-input-group">
-              <span className="phone-input-icon">
-                <IoAdd />
-              </span>
-              <input
-                type="text"
-                name="ddd"
-                placeholder=""
-                maxLength={3}
-                value={ddd}
-                onChange={(e) => setDdd(e.target.value.replace(/\D/g, ""))}
-                className="ddd-input"
-                required
-              />
-            </div>
-            <input
-              type="text"
-              name="phone"
-              placeholder="Telefone"
-              maxLength={9}
-              value={phone}
-              onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-              className="phone-input"
-              required
-            />
-          </div>
+          <PhoneInput 
+            field="fullPhone" 
+            initialDdd={ddd} 
+            initialPhone={phone} 
+            onChange={(e) => {
+              const fullNumber = e.target.value;
+              const dddPart = fullNumber.substring(1, 4); 
+              const phonePart = fullNumber.substring(4); 
+              setDdd(dddPart);
+              setPhone(phonePart);
+            }} 
+          />
         </div>
 
         <div className="selects-row">
