@@ -9,19 +9,19 @@
         "*://web.whatsapp.com/*"
       ],
       "js": [
-        "content.js"
+        "app/content.js"
       ],
       "css": [
-        "content.css"
+        "app/content.css"
       ]
     }
   ],
   "action": {
     "default_popup": "index.html",
     "default_icon": {
-      "16": "logo192.png",
-      "48": "logo192.png",
-      "128": "logo192.png"
+      "16": "./app/assets/logo192.png",
+      "48": "./app/assets/logo192.png",
+      "128": "./app/assets/logo192.png"
     }
   },
   "web_accessible_resources": [
@@ -35,7 +35,7 @@
     }
   ],
   "icons": {
-    "128": "logo192.png"
+    "128": "./app/assets/logo192.png"
   },
   "permissions": [
     "activeTab",
@@ -53,7 +53,7 @@
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
   "background": {
-    "service_worker": "background.js",
+    "service_worker": "app/background.js",
     "type": "module"
   }
 }
