@@ -6,7 +6,8 @@ import './TopBar.css'
 const TopBar = () => {
   const menuOption = ['Todas', 'Não Lidas', 'Respondeu', 'Não Respondeu', 'Concluídos']
   const {
-    filter,
+    filters,
+    currentFilter,
     setCurrentFilter,
     isAllPage,
     setIsAllPage,
@@ -42,7 +43,7 @@ const TopBar = () => {
         {menuOption.map((item) => {
           return (
             <button
-              className={`menu-item${filter === item ? ' active' : ''}`}
+              className={`menu-item${currentFilter === item ? ' active' : ''}`}
               onClick={() => setCurrentFilter(item)}>
               {item}
             </button>

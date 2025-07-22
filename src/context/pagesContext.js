@@ -4,7 +4,8 @@ const PagesContext = createContext(null);
 
 export const PagesProvider = ({ children }) => {
   const [page, setPage] = useState('');
-  const [filter, setFilter] = useState('Todas');
+  const [currentFilter, setCurrentFilters] = useState('Todas');
+  const [filters, setFilter] = useState([])
   const [isAllPage, setAllPage] = useState(false);
 
   const setIsAllPage = (value) => {
@@ -16,13 +17,19 @@ export const PagesProvider = ({ children }) => {
   };
 
   const setCurrentFilter = (filter) => {
-    setFilter(filter);
+    setCurrentFilters(filter);
   };
+
+  const setFilters = (filters) => {
+    setCurrentFilter(filters)
+  }
 
   return (
     <PagesContext.Provider value={{
       page,
-      filter,
+      filters,
+      setFilters,
+      currentFilter,
       setCurrentPage,
       setCurrentFilter,
       setIsAllPage,

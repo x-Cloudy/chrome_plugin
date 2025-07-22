@@ -24,7 +24,7 @@ const CurrentPage = () => {
 
   useEffect(() => {
     authStore.loadAuth();
-  }, [authStore]);
+  }, []);
 
   return (
     <div style={getPageStyle()}>

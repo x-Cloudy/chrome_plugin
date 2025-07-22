@@ -1,3 +1,5 @@
+import ChromeMessageHandler from "./modules/ChromeMessageHandler.js";
+
 chrome.runtime.onInstalled.addListener(() => {
   // chrome.action.disable();
 
@@ -18,95 +20,109 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  const getToken = async () => {
-    const result = await chrome.storage.local.get(['token']);
-    return result.token;
-  };
+// class ChromeMessageHandler {
+//   constructor() {
+//     this.initListeners();
+//   }
 
-  if (request.type === "QUOTE_CREATE") {
-    getToken().then((token) => {
-      fetch("https://api.bpcruzeiros.com/admin/quotes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify(request.payload.form)
-      })
-        .then(res => res.json())
-        .then((data) => {
-          console.log('fetch response', data)
-        })
-        .catch(err => sendResponse({ success: false, error: err }));
-    }).catch(err => sendResponse({ success: false, error: err }));
-  }
-  return true;
-});
+//   initListeners() {
+//     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+//       switch (request.type) {
+//         case "QUOTE_CREATE":
+//           this.handleQuoteCreate(request, sendResponse);
+//           break;
+//         case "LOGIN":
+//           this.handleLogin(request, sendResponse);
+//           break;
+//         case "ME":
+//           this.handleMe(sendResponse);
+//           break;
+//         case "FETCH_IMAGE":
+//           this.handleFetchImage(request, sendResponse);
+//           break;
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === "LOGIN") {
-    fetch("https://api.bpcruzeiros.com/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(request.payload)
-    })
-      .then(res => res.json())
-      .then((data) => {
-        if (typeof data.access_token !== 'undefined') {
-          sendResponse({ success: true, data })
-          chrome.storage.local.set({ token: data.access_token })
-          chrome.storage.local.set({ user: data.user })
-        } else {
-          sendResponse({ success: false, data })
-        }
-      })
-      .catch(err => sendResponse({ success: false, error: err }));
-    return true;
-  }
-});
+//         default:
+//           break;
+//       }
+//       return true;
+//     });
+//   }
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  const getToken = async () => {
-    const result = await chrome.storage.local.get(['token']);
-    return result.token;
-  };
+//   async getToken() {
+//     const result = await chrome.storage.local.get(['token']);
+//     return result.token;
+//   }
 
-  if (request.type === "ME") {
-    getToken().then((token) => {
-      fetch("https://api.bpcruzeiros.com/api/auth/me", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: null
-      })
-        .then(res => res.json())
-        .then((data) => {
-          sendResponse({ success: true, data })
-          chrome.storage.local.set({ user: data.user })
-        })
-        .catch(err => sendResponse({ success: false, error: err }));
-    }).catch(err => sendResponse({ success: false, error: err }));
-  }
-  return true;
-});
+//   handleQuoteCreate(request, sendResponse) {
+//     this.getToken().then((token) => {
+//       fetch("https://api.bpcruzeiros.com/admin/quotes", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//           "Authorization": `Bearer ${token}`
+//         },
+//         body: JSON.stringify(request.payload.form)
+//       })
+//         .then(res => res.json())
+//         .then((data) => {
+//           console.log('fetch response', data);
+//           sendResponse({ success: true, data });
+//         })
+//         .catch(err => sendResponse({ success: false, error: err }));
+//     }).catch(err => sendResponse({ success: false, error: err }));
+//   }
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === "FETCH_IMAGE") {
-    fetch(request.payload.url)
-      .then(res => res.blob())
-      .then((blob) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          sendResponse({ success: true, data: reader.result })
-        };
-        reader.readAsDataURL(blob);
-      })
-      .catch(err => sendResponse({ success: false, error: err }));
-    return true;
-  }
-});
+//   handleLogin(request, sendResponse) {
+//     fetch("https://api.bpcruzeiros.com/api/auth/login", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(request.payload)
+//     })
+//       .then(res => res.json())
+//       .then((data) => {
+//         if (data.access_token) {
+//           chrome.storage.local.set({ token: data.access_token });
+//           chrome.storage.local.set({ user: data.user });
+//           sendResponse({ success: true, data });
+//         } else {
+//           sendResponse({ success: false, data });
+//         }
+//       })
+//       .catch(err => sendResponse({ success: false, error: err }));
+//   }
+
+//   handleMe(sendResponse) {
+//     this.getToken().then((token) => {
+//       fetch("https://api.bpcruzeiros.com/api/auth/me", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//           "Authorization": `Bearer ${token}`
+//         },
+//         body: null
+//       })
+//         .then(res => res.json())
+//         .then((data) => {
+//           chrome.storage.local.set({ user: data.user });
+//           sendResponse({ success: true, data });
+//         })
+//         .catch(err => sendResponse({ success: false, error: err }));
+//     }).catch(err => sendResponse({ success: false, error: err }));
+//   }
+
+//   handleFetchImage(request, sendResponse) {
+//     fetch(request.payload.url)
+//       .then(res => res.blob())
+//       .then((blob) => {
+//         const reader = new FileReader();
+//         reader.onloadend = () => {
+//           sendResponse({ success: true, data: reader.result });
+//         };
+//         reader.readAsDataURL(blob);
+//       })
+//       .catch(err => sendResponse({ success: false, error: err }));
+//   }
+// }
+
+new ChromeMessageHandler();
+
