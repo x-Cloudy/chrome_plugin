@@ -1,18 +1,27 @@
+import { useEffect } from 'react';
+import FiltersService from '../../service/filters.service';
 import { usePages } from '../../context/pagesContext'
 import DragDropBoard from '../../pages/Management/DragDropBoard';
 import TablePage from '../../pages/Table/Table';
 import './TopBar.css'
 
 const TopBar = () => {
-  const menuOption = ['Todas', 'Não Lidas', 'Respondeu', 'Não Respondeu', 'Concluídos']
+  const service = new FiltersService();
+  
   const {
     filters,
+    setFilters,
     currentFilter,
     setCurrentFilter,
     isAllPage,
     setIsAllPage,
     setCurrentPage,
     page } = usePages();
+
+  const fetch_filters = async () => {
+    const response = await service.getFilters();
+    setFilters(response.data.data);
+  }
 
   const handleClick = () => {
     if (isAllPage && page !== 'gerenciar') {
@@ -37,10 +46,15 @@ const TopBar = () => {
     }
   }
 
+  useEffect(() => {
+    console.log('montei no effect')
+    fetch_filters();
+  }, [])
+
   return (
     <div className={isAllPage ? "topBar-container-active" : "topBar-container"}>
       {!isAllPage && <div className='topBar-menu'>
-        {menuOption.map((item) => {
+        {filters.map((item) => {
           return (
             <button
               className={`menu-item${currentFilter === item ? ' active' : ''}`}

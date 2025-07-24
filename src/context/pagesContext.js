@@ -21,7 +21,7 @@ export const PagesProvider = ({ children }) => {
   };
 
   const setFilters = (filters) => {
-    setCurrentFilter(filters)
+    setFilter(prev => [...prev, filters]);
   }
 
   return (

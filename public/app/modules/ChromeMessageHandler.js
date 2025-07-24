@@ -18,6 +18,18 @@ export default class ChromeMessageHandler {
         case "FETCH_IMAGE":
           this.handleFetchImage(request, sendResponse);
           break;
+        case "GET_FILTERS":
+          this.handleFilterGet(request, sendResponse);
+          break;
+        case "POST_FILTERS":
+          this.handleFilterPost(request, sendResponse);
+          break;
+        case "PUT_FILTERS":
+          this.handleFilterPut(request, sendResponse);
+          break;
+        case "DELETE_FILTERS":
+          this.handleFilterDelete(request, sendResponse);
+          break;
 
         default:
           break;
@@ -99,6 +111,77 @@ export default class ChromeMessageHandler {
         reader.readAsDataURL(blob);
       })
       .catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  handleFilterGet(request, sendResponse) {
+    this.getToken().then((token) => {
+      fetch("https://api.bpcruzeiros.com/admin/guideSettings", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then((data) => {
+          sendResponse({ success: true, data });
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  handleFilterPost(request, sendResponse) {
+    this.getToken().then((token) => {
+      fetch("https://api.bpcruzeiros.com/admin/guideSettings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(request.payload)
+      })
+        .then(res => res.json())
+        .then((data) => {
+          sendResponse({ success: true, data });
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  handleFilterPut(request, sendResponse) {
+    this.getToken().then((token) => {
+      fetch(`https://api.bpcruzeiros.com/admin/guideSettings/${request.payload.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(request.payload.form)
+      })
+        .then(res => res.json())
+        .then((data) => {
+          sendResponse({ success: true, data });
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  handleFilterDelete(request, sendResponse) {
+    this.getToken().then((token) => {
+      fetch(`https://api.bpcruzeiros.com/admin/guideSettings/${request.payload.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(request.payload.form)
+      })
+        .then(res => res.json())
+        .then((data) => {
+          sendResponse({ success: true, data });
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
   }
 }
 

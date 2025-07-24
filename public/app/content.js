@@ -1,3 +1,97 @@
+class ExtensionMessageHandler {
+  constructor() {
+    this.setupListeners();
+  }
+
+  setupListeners() {
+    this.registerMessage({ type: 'PUT_FILTERS' });
+    this.registerMessage({ type: 'DELETE_FILTERS' });
+    this.registerMessage({ type: 'POST_FILTERS', usePayload: true });
+    this.registerMessage({ type: 'GET_FILTERS' });
+    this.registerMessage({ type: 'EXTENSION_ME', runtimeType: 'ME' });
+    this.registerMessage({ type: 'EXTENSION_LOGIN', runtimeType: 'LOGIN', usePayload: true });
+    this.registerMessage({
+      type: 'EXTENSION_QUOTE_CREATE',
+      runtimeType: 'QUOTE_CREATE',
+      usePayload: true,
+      postResponse: false,
+      responseType: 'EXTENSION_QUOTE_CREATE_RESPONSE'
+    });
+
+    this.registerCustom('EXTENSION_LOGOUT', this.handleLogout);
+    this.registerCustom('GET_TOKEN', this.handleGetToken);
+    this.registerCustom('EXTENSION_FETCH_IMAGE', this.handleFetchImage);
+  }
+
+  registerMessage({
+    type,
+    runtimeType = type,
+    usePayload = false,
+    postResponse = true,
+    responseType = `${type}_RESPONSE`
+  }) {
+    window.addEventListener('message', (event) => {
+      if (event.data.type !== type) return;
+
+      const message = { type: runtimeType };
+      if (usePayload) message.payload = event.data.payload;
+
+      chrome.runtime.sendMessage(message, (response) => {
+        if (postResponse) {
+          window.postMessage({
+            type: responseType,
+            payload: response
+          }, '*');
+        }
+      });
+    });
+  }
+
+  registerCustom(type, handler) {
+    window.addEventListener('message', (event) => {
+      if (event.data.type === type) {
+        handler(event);
+      }
+    });
+  }
+
+  handleLogout = async () => {
+    await chrome.storage.local.clear();
+    window.postMessage({
+      type: 'EXTENSION_LOGOUT_RESPONSE',
+      payload: { success: true, mensage: 'Usúario desconectado' }
+    }, '*');
+  };
+
+  handleGetToken = async () => {
+    const result = await chrome.storage.local.get(['token']);
+    const token = result?.token || null;
+
+    window.postMessage({
+      type: 'GET_TOKEN_RESPONSE',
+      payload: token
+    }, '*');
+  };
+
+  handleFetchImage = (event) => {
+    const { payload } = event.data;
+    if (!payload?.url) return;
+
+    chrome.runtime.sendMessage({
+      type: 'FETCH_IMAGE',
+      payload
+    }, (response) => {
+      if (response.success) {
+        const img = document.querySelector('#' + payload.id);
+        if (img) {
+          console.log('carregou imagem');
+          img.src = response.data;
+        }
+      }
+    });
+  };
+}
+
 const waitForElement = (selector) => {
   return new Promise(resolve => {
     const interval = setInterval(() => {
@@ -53,93 +147,6 @@ const injectReact = async () => {
   }
 };
 
-window.addEventListener('message', (event) => {
-  if (event.data.type === 'EXTENSION_LOGIN') {
-
-    chrome.runtime.sendMessage({
-      type: 'LOGIN',
-      payload: event.data.payload
-    }, (response) => {
-      window.postMessage({
-        type: 'EXTENSION_LOGIN_RESPONSE',
-        payload: response
-      }, '*');
-    });
-  }
-});
-
-window.addEventListener('message', async (event) => {
-  if (event.data.type === 'EXTENSION_LOGOUT') {
-    await chrome.storage.local.clear();
-
-    window.postMessage({
-      type: 'EXTENSION_LOGOUT_RESPONSE',
-      payload: { success: true, mensage: 'Usúario desconectado' }
-    }, '*')
-  }
-})
-
-window.addEventListener('message', (event) => {
-  if (event.data.type === 'EXTENSION_ME') {
-
-    chrome.runtime.sendMessage({
-      type: 'ME',
-      payload: null
-    }, (response) => {
-      window.postMessage({
-        type: 'EXTENSION_ME_RESPONSE',
-        payload: response
-      }, '*');
-    });
-  }
-});
-
-window.addEventListener('message', async (event) => {
-  if (event.data.type === 'GET_TOKEN') {
-    const getToken = async () => {
-      const result = await chrome.storage.local.get(['token']);
-      if (result) {
-        return result.token;
-      }
-    };
-
-    window.postMessage({
-      type: 'GET_TOKEN_RESPONSE',
-      payload: await getToken()
-    }, '*')
-  }
-})
-
-window.addEventListener('message', (event) => {
-  if (event.data.type === 'EXTENSION_FETCH_IMAGE') {
-    if (!event.data.payload.url) return;
-
-    chrome.runtime.sendMessage({
-      type: 'FETCH_IMAGE',
-      payload: event.data.payload
-    }, (response) => {
-      if (response.success) {
-        const img = document.querySelector('#' + event.data.payload.id);
-        if (img) {
-          console.log('carregou imagem')
-          img.src = response.data;
-        }
-      }
-    });
-  }
-});
-
-window.addEventListener('message', (event) => {
-  if (event.data.type === 'EXTENSION_QUOTE_CREATE') {
-    if (!event.data.payload) return;
-
-    chrome.runtime.sendMessage({
-      type: 'QUOTE_CREATE',
-      payload: event.data.payload
-    }, (response) => {
-      window.postMessage('EXTENSION_QUOTE_CREATE_RESPONSE')
-    });
-  }
-});
+new ExtensionMessageHandler();
 
 setTimeout(injectReact, 3000);

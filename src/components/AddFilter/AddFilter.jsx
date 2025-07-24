@@ -5,13 +5,22 @@ import { FiPlus } from "react-icons/fi";
 import { GoEye } from "react-icons/go";
 import { MdOutlineModeEdit } from "react-icons/md";
 import InputText from '../Inputs/Text/InputText';
-import './AddFilter.css'
 import { useState } from 'react';
+import { usePages } from '../../context/pagesContext';
+import FiltersService from '../../service/filters.service';
+import './AddFilter.css'
 
 const AddFilter = () => {
-  const items = ['Não lidas', 'Respondeu', 'Não Respondeu', 'Concluídos'];
   const [isOpen, setIsOpen] = useState(false);
-  const [filter, setFilter] = useState('');
+  const { filters, setFilters } = usePages();
+  const [newFilter, setNewFilter] = useState('');
+  const service = new FiltersService();
+
+  const handleSetFilter = async () => {
+    await service.post("POST_FILTERS", newFilter);
+    const response = await service.getFilters();
+    setFilters(response.data.data);
+  }
 
   return (
     <div className='container'>
@@ -21,7 +30,7 @@ const AddFilter = () => {
       </div>
 
       <div className='list-section'>
-        {items.map((item) => {
+        {filters.map((item) => {
           return (
             <div className='list-items-row'>
               <div style={{
@@ -46,8 +55,8 @@ const AddFilter = () => {
 
       {isOpen &&
         <div style={{ display: 'flex', flexWrap: 'nowrap', width: '100%', marginTop: '1rem' }}>
-          <InputText onChange={(e) => setFilter(e.target.value)} field={'filter'} placeholder={'Adicione um novo filtro'} />
-          <button className='add-filter-plus'>
+          <InputText onChange={(e) => setNewFilter(e.target.value)} field={'filter'} placeholder={'Adicione um novo filtro'} />
+          <button onClick={() => handleSetFilter()} className='add-filter-plus'>
             <FiPlus />
           </button>
         </div>

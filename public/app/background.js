@@ -1,5 +1,4 @@
 import ChromeMessageHandler from "./modules/ChromeMessageHandler.js";
-
 chrome.runtime.onInstalled.addListener(() => {
   // chrome.action.disable();
 
