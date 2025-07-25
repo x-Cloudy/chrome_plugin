@@ -20,7 +20,9 @@ const TopBar = () => {
 
   const fetch_filters = async () => {
     const response = await service.getFilters();
-    setFilters(response.data.data);
+    if (response.success) {
+      setFilters(response.data);
+    }
   }
 
   const handleClick = () => {
@@ -47,7 +49,6 @@ const TopBar = () => {
   }
 
   useEffect(() => {
-    console.log('montei no effect')
     fetch_filters();
   }, [])
 

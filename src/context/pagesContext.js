@@ -1,11 +1,11 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 
 const PagesContext = createContext(null);
 
 export const PagesProvider = ({ children }) => {
   const [page, setPage] = useState('');
-  const [currentFilter, setCurrentFilters] = useState('Todas');
   const [filters, setFilter] = useState([])
+  const [currentFilter, setCurrentFilters] = useState('');
   const [isAllPage, setAllPage] = useState(false);
 
   const setIsAllPage = (value) => {
@@ -21,8 +21,13 @@ export const PagesProvider = ({ children }) => {
   };
 
   const setFilters = (filters) => {
-    setFilter(prev => [...prev, filters]);
+    console.log('filtesr', filters)
+    setFilter(prev => [...prev, ...filters]);
   }
+
+  useEffect(() => {
+    console.log('effect filter', filters)
+  }, [filters])
 
   return (
     <PagesContext.Provider value={{

@@ -5,7 +5,7 @@ import { FiPlus } from "react-icons/fi";
 import { GoEye } from "react-icons/go";
 import { MdOutlineModeEdit } from "react-icons/md";
 import InputText from '../Inputs/Text/InputText';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePages } from '../../context/pagesContext';
 import FiltersService from '../../service/filters.service';
 import './AddFilter.css'
@@ -19,8 +19,11 @@ const AddFilter = () => {
   const handleSetFilter = async () => {
     await service.post("POST_FILTERS", newFilter);
     const response = await service.getFilters();
-    setFilters(response.data.data);
   }
+
+  useEffect(() => {
+    console.log('how filter is', filters)
+  }, [filters])
 
   return (
     <div className='container'>
