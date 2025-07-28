@@ -124,7 +124,6 @@ export default class ChromeMessageHandler {
       })
         .then(res => res.json())
         .then((data) => {
-          console.log('dta', data)
           sendResponse({ success: true, data: data.data[0] });
         })
         .catch(err => sendResponse({ success: false, error: err }));
@@ -139,7 +138,7 @@ export default class ChromeMessageHandler {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(request.payload)
+        body: JSON.stringify({settings: request.payload})
       })
         .then(res => res.json())
         .then((data) => {
