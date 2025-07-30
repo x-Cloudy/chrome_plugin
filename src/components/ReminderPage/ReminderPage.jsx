@@ -27,7 +27,6 @@ const ReminderPage = () => {
         backgroundImage: `url(${bgChat})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        width: "465px",
         backgroundSize: "cover",
       }}>
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', padding: '1rem', alignItems: 'start' }}>

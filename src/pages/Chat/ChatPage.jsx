@@ -28,7 +28,6 @@ export const ChatStartPage = () => {
         backgroundImage: `url(${bgChat})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        width: "465px",
         backgroundSize: "cover",
       }}
     >
