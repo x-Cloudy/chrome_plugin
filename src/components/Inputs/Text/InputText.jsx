@@ -4,7 +4,7 @@ const InputText = ({
   field,
   onChange,
   placeholder,
-  type = 'text'
+  type = 'text',
 }) => {
   return (
     <input

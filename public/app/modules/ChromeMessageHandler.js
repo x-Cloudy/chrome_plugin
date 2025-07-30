@@ -114,6 +114,10 @@ export default class ChromeMessageHandler {
   }
 
   handleFilterGet(request, sendResponse) {
+    const compareIds = (a, b) => {
+      return Number(a.id) - Number(b.id);
+    }
+
     this.getToken().then((token) => {
       fetch("https://api.bpcruzeiros.com/admin/guideSettings", {
         method: "GET",
@@ -124,10 +128,13 @@ export default class ChromeMessageHandler {
       })
         .then(res => res.json())
         .then((data) => {
-          sendResponse({ success: true, data: data.data });
-        })
-        .catch(err => sendResponse({ success: false, error: err }));
-    }).catch(err => sendResponse({ success: false, error: err }));
+          sendResponse({
+            success: true,
+            data: data.data.sort(compareIds)
+          })
+            .catch(err => sendResponse({ success: false, error: err }));
+        }).catch(err => sendResponse({ success: false, error: err }));
+    })
   }
 
   handleFilterPost(request, sendResponse) {
@@ -138,7 +145,7 @@ export default class ChromeMessageHandler {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({settings: request.payload})
+        body: JSON.stringify({ settings: request.payload })
       })
         .then(res => res.json())
         .then((data) => {
@@ -156,7 +163,7 @@ export default class ChromeMessageHandler {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(request.payload.form)
+        body: JSON.stringify({ settings: [request.payload.value] })
       })
         .then(res => res.json())
         .then((data) => {
@@ -173,8 +180,7 @@ export default class ChromeMessageHandler {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify(request.payload.form)
+        }
       })
         .then(res => res.json())
         .then((data) => {

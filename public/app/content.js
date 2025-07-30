@@ -4,8 +4,8 @@ class ExtensionMessageHandler {
   }
 
   setupListeners() {
-    this.registerMessage({ type: 'PUT_FILTERS' });
-    this.registerMessage({ type: 'DELETE_FILTERS' });
+    this.registerMessage({ type: 'PUT_FILTERS', usePayload: true });
+    this.registerMessage({ type: 'DELETE_FILTERS', usePayload: true });
     this.registerMessage({ type: 'POST_FILTERS', usePayload: true });
     this.registerMessage({ type: 'GET_FILTERS' });
     this.registerMessage({ type: 'EXTENSION_ME', runtimeType: 'ME' });

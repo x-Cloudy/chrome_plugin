@@ -58,9 +58,10 @@ const TopBar = () => {
         {filters.map((item) => {
           return (
             <button
+              id={item.id}
               className={`menu-item${currentFilter === item ? ' active' : ''}`}
               onClick={() => setCurrentFilter(item)}>
-              {item}
+              {item.settings}
             </button>
           )
         })}

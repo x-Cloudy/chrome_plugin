@@ -21,8 +21,11 @@ export const PagesProvider = ({ children }) => {
   };
 
   const setFilters = (filters) => {
-    console.log('filtesr', filters)
     setFilter(prev => [...prev, ...filters]);
+  }
+
+  const clearFilters = () => {
+    setFilter(prev => prev = [])
   }
 
   useEffect(() => {
@@ -38,6 +41,7 @@ export const PagesProvider = ({ children }) => {
       setCurrentPage,
       setCurrentFilter,
       setIsAllPage,
+      clearFilters,
       isAllPage
     }}>
       {children}

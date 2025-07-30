@@ -32,4 +32,32 @@ export default class Fetch {
       window.addEventListener('message', listener);
     })
   }
+
+  delete(type, payload) {
+    return new Promise((resolve) => {
+      window.postMessage({
+        type: type,
+        payload: payload
+      }, '*');
+
+      const listener = (response) => {
+        this.listenerHandler({ response, type, resolve, listener });
+      }
+      window.addEventListener('message', listener);
+    })
+  }
+
+  put(type, payload) {
+    return new Promise((resolve) => {
+      window.postMessage({
+        type: type,
+        payload: payload
+      }, '*');
+
+      const listener = (response) => {
+        this.listenerHandler({ response, type, resolve, listener });
+      }
+      window.addEventListener('message', listener);
+    })
+  }
 }
