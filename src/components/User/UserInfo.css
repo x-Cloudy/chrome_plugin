@@ -38,15 +38,3 @@
   font-size: 13px;
   font-weight: 500;
 }
-
-.user-phone{
-  color: #54595FE8;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 1px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}

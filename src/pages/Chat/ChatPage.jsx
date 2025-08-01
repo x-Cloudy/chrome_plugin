@@ -32,21 +32,22 @@ export const ChatStartPage = () => {
       }}
     >
       <div className="top-section">
-        <h6 className="title-page">INICIAR CHAT</h6>
-        <CloseBtn />
+        <div>
+          <h6 className="title-page">INICIAR CHAT</h6>
+          <p
+            style={{
+              fontSize: "14px",
+              color: "#54595FE8",
+              fontWeight: "500",
+              margin: "0.5rem 0 0 0",
+            }}
+          >
+            Inicie uma conversa com um contato não salvo.
+          </p>
+        </div>
       </div>
-      <div>
-        <p
-          style={{
-            fontSize: "14px",
-            color: "#54595FE8",
-            height: "18px",
-            fontWeight: "500",
-          }}
-        >
-          Inicie uma conversa com um contato não salvo.
-        </p>
-      </div>
+      <CloseBtn />
+
       <form
         onSubmit={handleSubmit}
         style={{

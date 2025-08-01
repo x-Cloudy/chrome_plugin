@@ -17,6 +17,10 @@ class ExtensionMessageHandler {
       postResponse: false,
       responseType: 'EXTENSION_QUOTE_CREATE_RESPONSE'
     });
+    this.registerMessage({ type: 'EXTENSION_ANNOTATION_GET', runtimeType: 'ANNOTATION_GET' });
+    this.registerMessage({ type: 'EXTENSION_ANNOTATION_POST', runtimeType: 'ANNOTATION_POST', usePayload: true });
+    this.registerMessage({ type: 'EXTENSION_ANNOTATION_PUT', runtimeType: 'ANNOTATION_PUT', usePayload: true });
+    this.registerMessage({ type: 'EXTENSION_ANNOTATION_DELETE', runtimeType: 'ANNOTATION_DELETE', usePayload: true });
 
     this.registerCustom('EXTENSION_LOGOUT', this.handleLogout);
     this.registerCustom('GET_TOKEN', this.handleGetToken);
