@@ -14,6 +14,9 @@ const CloseBtn = () => {
       onClick={() => reset()}
       style={{
         background: 'rgba(10, 8, 65, 1)',
+        position: 'absolute',
+        top: '1rem',
+        right: '1rem',
         borderRadius: '50%',
         color: 'white',
         width: '28px',

@@ -30,6 +30,18 @@ export default class ChromeMessageHandler {
         case "DELETE_FILTERS":
           this.handleFilterDelete(request, sendResponse);
           break;
+        case "ANNOTATION_GET":
+          this.handleAnnotationGet(request, sendResponse);
+          break;
+        case "ANNOTATION_POST":
+          this.handleAnnotationPost(request, sendResponse);
+          break;
+        case "ANNOTATION_PUT":
+          this.handleAnnotationPut(request, sendResponse);
+          break;
+        case "ANNOTATION_DELETE":
+          this.handleAnnotationDelete(request, sendResponse);
+          break;
 
         case "GET_RECONTACT":
           this.handleGetRecontact(request, sendResponse);
@@ -198,6 +210,76 @@ export default class ChromeMessageHandler {
     this.getToken().then((token) => {
       fetch(`https://api.bpcruzeiros.com/admin/recontacts`, {
         method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then((data) => {
+          sendResponse({ success: true, data });
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  handleAnnotationGet(request, sendResponse) {
+    this.getToken().then((token) => {
+      fetch("https://api.bpcruzeiros.com/admin/annotation", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then((data) => {
+          sendResponse({ success: true, data });
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  handleAnnotationPost(request, sendResponse) {
+    this.getToken().then((token) => {
+      fetch("https://api.bpcruzeiros.com/admin/annotation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(request.payload)
+      })
+        .then(res => res.json())
+        .then((data) => {
+          sendResponse({ success: true, data });
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  handleAnnotationPut(request, sendResponse) {
+    this.getToken().then((token) => {
+      fetch(`https://api.bpcruzeiros.com/admin/annotation/${request.payload.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(request.payload.data)
+      })
+        .then(res => res.json())
+        .then((data) => {
+          sendResponse({ success: true, data });
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  handleAnnotationDelete(request, sendResponse) {
+    this.getToken().then((token) => {
+      fetch(`https://api.bpcruzeiros.com/admin/annotation/${request.payload.id}`, {
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`

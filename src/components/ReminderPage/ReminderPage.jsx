@@ -29,7 +29,7 @@ const ReminderPage = () => {
         backgroundPosition: "center",
         backgroundSize: "cover",
       }}>
-    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', padding: '1rem', alignItems: 'start' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', alignItems: 'start' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem', width: '100%' }}>
         <div>
           {menuOptions.map((item) => {
@@ -41,7 +41,7 @@ const ReminderPage = () => {
             )
           })}
         </div>
-        <CloseBtn />
+      <CloseBtn />
       </div>
 
       {pageSwitcher(selectedMenu)}

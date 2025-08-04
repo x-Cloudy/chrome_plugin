@@ -27,7 +27,7 @@ const TablePage = () => {
 
   return (
     <div className="table-container">
-      <div style={{ position: 'absolute', top: '63px', right: '73px' }}>
+      <div style={{ position: 'absolute', top: '50px', right: '55px' }}>
         <CloseBtn />
       </div>
       <div className="table-filter">
