@@ -1,10 +1,12 @@
 import CloseBtn from "../../components/Buttons/CloseBtn";
 import { MdEdit, MdDelete } from "react-icons/md";
 import Filters from "./components/Filters";
-
+import useRecontact from "../../service/recontact.service";
+import { useEffect } from "react";
 import "./Table.css"
 
 const TablePage = () => {
+  const recontact = useRecontact();
   const data = [
     { nome: 'Luana', telefone: '5511911112222', adultos: '2 Adultos', chd: '10 anos' },
     { nome: 'Roberta', telefone: '5511911112222', adultos: '3 Adultos', chd: '15 anos' },
@@ -17,6 +19,11 @@ const TablePage = () => {
     { nome: 'João', telefone: '5511911112222', adultos: '3 Adultos', chd: '15 anos' },
     { nome: 'Oscar', telefone: '5511911112222', adultos: '2 Adultos', chd: '15 anos' },
   ];
+
+  useEffect(async () => {
+    console.log('ativou');
+    await recontact.getContact()
+  }, [])
 
   return (
     <div className="table-container">

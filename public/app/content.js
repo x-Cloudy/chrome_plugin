@@ -10,6 +10,7 @@ class ExtensionMessageHandler {
     this.registerMessage({ type: 'GET_FILTERS' });
     this.registerMessage({ type: 'EXTENSION_ME', runtimeType: 'ME' });
     this.registerMessage({ type: 'EXTENSION_LOGIN', runtimeType: 'LOGIN', usePayload: true });
+    this.registerMessage({ type: 'GET_RECONTACT' });
     this.registerMessage({
       type: 'EXTENSION_QUOTE_CREATE',
       runtimeType: 'QUOTE_CREATE',

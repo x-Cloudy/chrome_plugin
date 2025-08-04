@@ -31,6 +31,10 @@ export default class ChromeMessageHandler {
           this.handleFilterDelete(request, sendResponse);
           break;
 
+        case "GET_RECONTACT":
+          this.handleGetRecontact(request, sendResponse);
+          break;
+
         default:
           break;
       }
@@ -177,6 +181,23 @@ export default class ChromeMessageHandler {
     this.getToken().then((token) => {
       fetch(`https://api.bpcruzeiros.com/admin/guideSettings/${request.payload.id}`, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then((data) => {
+          sendResponse({ success: true, data });
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  handleGetRecontact(request, sendResponse) {
+    this.getToken().then((token) => {
+      fetch(`https://api.bpcruzeiros.com/admin/recontacts`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
