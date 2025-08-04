@@ -20,9 +20,12 @@ const TablePage = () => {
     { nome: 'Oscar', telefone: '5511911112222', adultos: '2 Adultos', chd: '15 anos' },
   ];
 
-  useEffect(async () => {
-    console.log('ativou');
+  const fetchData = async () => {
     await recontact.getContact()
+  }
+
+  useEffect(() => {
+    fetchData();
   }, [])
 
   return (

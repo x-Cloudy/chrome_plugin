@@ -8,8 +8,7 @@ class Recontact extends Fetch {
 }
 
 const useRecontact = () => {
-  const ctx = new Recontact();
-  return ctx;
-}
+  return new Recontact();
+};
 
 export default useRecontact;
