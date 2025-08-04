@@ -217,6 +217,7 @@ export default class ChromeMessageHandler {
       })
         .then(res => res.json())
         .then((data) => {
+          console.log('porraaaaa', data)
           sendResponse({ success: true, data });
         })
         .catch(err => sendResponse({ success: false, error: err }));

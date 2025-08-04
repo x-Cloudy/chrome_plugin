@@ -16,8 +16,8 @@ function RootWrapper() {
   return (
     <AuthProvider>
       <PagesProvider>
-        {currentPageEl && createPortal(<CurrentPage />, currentPageEl)}
-        {sideExtension && createPortal(<App />, sideExtension)}
+          {currentPageEl && createPortal(<CurrentPage />, currentPageEl)}
+          {sideExtension && createPortal(<App />, sideExtension)}
       </PagesProvider>
     </AuthProvider>
   )

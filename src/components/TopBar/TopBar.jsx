@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import FiltersService from '../../service/filters.service';
-import { usePages } from '../../context/pagesContext'
 import DragDropBoard from '../../pages/Management/DragDropBoard';
 import TablePage from '../../pages/Table/Table';
+import { RecontactProvider } from '../../context/RecontactContext';
+import { usePages } from '../../context/pagesContext'
 import './TopBar.css'
 
 const TopBar = () => {
   const service = new FiltersService();
-  
+
   const {
     filters,
     setFilters,
@@ -41,7 +42,11 @@ const TopBar = () => {
         return <DragDropBoard />;
 
       case 'table':
-        return <TablePage />;
+        return (
+          <RecontactProvider>
+            <TablePage />
+          </RecontactProvider>
+        );
 
       default:
         return <></>;

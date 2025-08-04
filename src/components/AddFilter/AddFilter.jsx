@@ -40,10 +40,6 @@ const AddFilter = () => {
     setFilters(response.data);
   }
 
-  useEffect(() => {
-    console.log('how filter is', filters)
-  }, [filters])
-
   return (
     <div className='container'>
       <div className='top-section'>

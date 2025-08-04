@@ -13,7 +13,6 @@ export const PagesProvider = ({ children }) => {
   }
 
   const setCurrentPage = (page) => {
-    console.log('page', page)
     setPage(page);
   };
 

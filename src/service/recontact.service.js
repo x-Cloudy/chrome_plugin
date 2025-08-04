@@ -2,13 +2,15 @@ import Fetch from "../modules/ChromeFetch";
 
 class Recontact extends Fetch {
   async getContact() {
-    const response = await this.get("GET_RECONTACT");
-    console.log('res', response)
+   const response = await this.get("GET_RECONTACT");
+   return response;
   }
 }
 
 const useRecontact = () => {
-  return new Recontact();
+  const ctx = new Recontact();
+  if (!ctx) throw new Error('Erro na instancia do Recontact');
+  return ctx;
 };
 
 export default useRecontact;
