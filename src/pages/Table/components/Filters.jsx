@@ -1,9 +1,9 @@
 import "./Filters.css"
-import InputText from "../../../components/Inputs/Text/InputText"
+import InputController from "../../../components/Inputs/InputControler/InputController";
 import { IoIosSearch } from "react-icons/io";
 
 const Filters = () => {
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -11,19 +11,42 @@ const Filters = () => {
     console.log('Form data:', data);
   }
 
-  return (
-    <form onSubmit={(e) => handleSubmit(e)} style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', gap: '1rem' }}>
-      <InputText field={'name'} placeholder={'Nome'} />
-      <InputText field={'phone'} placeholder={'Telefone'} />
-      <InputText field={'ship'} placeholder={'Navio'} />
-      <InputText type="date" field={'date_start'} placeholder={'Data Inicio'} />
-      <InputText type="date" field={'date_end'} placeholder={'Data fim'} />
-      <InputText field={'adults'} placeholder={'Adultos'} />
-      <InputText field={'CHD'} placeholder={'CHD'} />
-      <InputText field={'destiny'} placeholder={'Destino'} />
+  const shipOptions = [
+    { value: 'option 1', label: 'Option 1' },
+    { value: 'option 2', label: 'Option 2' },
+    { value: 'option 3', label: 'Option 3' }
+  ]
 
-      <button style={{ fontSize: '23px'}} className="table-custom-action-btn" type="submit"><IoIosSearch /></button>
-      <button style={{ fontSize: '15px'}} className="table-custom-action-btn"  type="button">Redefinir</button>
+  const handleChange = (e) => {
+    console.log('e', e)
+  }
+
+  return (
+    <form onSubmit={(e) => handleSubmit(e)} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', width: '100%' }}>
+
+      <div style={{ width: '50%', display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
+
+        <InputController
+          label={'Navio'}
+          field={'ship'}
+          placeholder={''}
+          type={'select'}
+          onChange={(e) => handleChange(e)}
+          options={shipOptions} />
+
+        <InputController
+          label={'Destino'}
+          field={'destiny'}
+          placeholder={''}
+          type={'select'}
+          onChange={(e) => handleChange(e)}
+          options={shipOptions} />
+      </div>
+
+      <div style={{width: '200px', display: 'flex', flexWrap: 'nowrap', gap: '1rem'}}>
+        <button style={{ fontSize: '23px' }} className="table-custom-action-btn" type="submit"><IoIosSearch /></button>
+        <button style={{ fontSize: '15px' }} className="table-custom-action-btn" type="button">Redefinir</button>
+      </div>
     </form>
   )
 }

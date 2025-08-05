@@ -38,6 +38,7 @@ const TablePage = () => {
               <th>CHD</th>
               <th>Destino</th>
               <th>Desejo</th>
+              <th>Data de atendimento</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -53,6 +54,7 @@ const TablePage = () => {
                 <td>{item.childrens}</td>
                 <td>{item.destiny}</td>
                 <td>{item.desire}</td>
+                <td>teste</td>
                 <td style={{ width: 'auto', gap: '2rem' }}>
                   <button className="custom-table-action-btn">
                     <MdEdit />
