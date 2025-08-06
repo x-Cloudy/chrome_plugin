@@ -8,6 +8,9 @@ class ExtensionMessageHandler {
     this.registerMessage({ type: 'DELETE_FILTERS', usePayload: true });
     this.registerMessage({ type: 'POST_FILTERS', usePayload: true });
     this.registerMessage({ type: 'GET_FILTERS' });
+    this.registerMessage({ type: 'GET_TABLE'})
+    this.registerMessage({ type: 'GET_TABLE_DESTINY_FILTER'})
+    this.registerMessage({ type: 'GET_TABLE_SHIP_FILTER'})
     this.registerMessage({ type: 'EXTENSION_ME', runtimeType: 'ME' });
     this.registerMessage({ type: 'EXTENSION_LOGIN', runtimeType: 'LOGIN', usePayload: true });
     this.registerMessage({ type: 'GET_RECONTACT' });

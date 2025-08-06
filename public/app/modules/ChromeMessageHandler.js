@@ -47,6 +47,18 @@ export default class ChromeMessageHandler {
           this.handleGetRecontact(request, sendResponse);
           break;
 
+        case "GET_TABLE":
+          this.handleTableData(request, sendResponse);
+          break;
+
+        case "GET_TABLE_DESTINY_FILTER":
+          this.handleTableDestinyFilter(request, sendResponse);
+          break;
+
+        case "GET_TABLE_SHIP_FILTER":
+          this.handleTableShipFilter(request, sendResponse);
+          break;
+
         default:
           break;
       }
@@ -278,6 +290,57 @@ export default class ChromeMessageHandler {
   }
 
   handleAnnotationDelete(request, sendResponse) {
+    this.getToken().then((token) => {
+      fetch(`https://api.bpcruzeiros.com/admin/annotation/${request.payload.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then((data) => {
+          sendResponse({ success: true, data });
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  handleTableData(request, sendResponse) {
+    this.getToken().then((token) => {
+      fetch(`https://api.bpcruzeiros.com/admin/annotation/${request.payload.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then((data) => {
+          sendResponse({ success: true, data });
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  handleTableDestinyFilter(request, sendResponse) {
+    this.getToken().then((token) => {
+      fetch(`https://api.bpcruzeiros.com/admin/annotation/${request.payload.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then((data) => {
+          sendResponse({ success: true, data });
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+
+  handleTableShipFilter(request, sendResponse) {
     this.getToken().then((token) => {
       fetch(`https://api.bpcruzeiros.com/admin/annotation/${request.payload.id}`, {
         method: "DELETE",
