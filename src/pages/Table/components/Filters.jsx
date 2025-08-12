@@ -4,7 +4,7 @@ import TableService from "../../../service/table.service";
 import { useEffect, useState } from "react";
 import "./Filters.css"
 
-const Filters = () => {
+const Filters = ({ onFilter }) => {
   const service = TableService();
   const [filters, setFilters] = useState({
     destiny: [],
@@ -12,12 +12,12 @@ const Filters = () => {
   });
 
   const fetchData = async () => {
-    const ship = await service.getShipFilterData();
-    const destiny = await service.getDestityFilterData();
+    const { data: ship } = await service.getShipFilterData();
+    const { data: destiny } = await service.getDestityFilterData();
 
     setFilters(prev => ({
-      ship,
-      destiny
+      ship: ship.data,
+      destiny: destiny.data
     }))
   }
 
@@ -25,14 +25,8 @@ const Filters = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    console.log('Form data:', data);
+    onFilter(data)
   }
-
-  const shipOptions = [
-    { value: 'option 1', label: 'Option 1' },
-    { value: 'option 2', label: 'Option 2' },
-    { value: 'option 3', label: 'Option 3' }
-  ]
 
   useEffect(() => {
     fetchData();
@@ -43,18 +37,24 @@ const Filters = () => {
 
       <div style={{ width: '70%', display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
         <InputController
+          onChange={(e) => {}}
           label={'Navio'}
           field={'ship'}
           placeholder={''}
           type={'select'}
-          options={filters.ship} />
+          options={filters.ship}
+          customLabel={'ship'}
+        />
 
         <InputController
+          onChange={(e) => {}}
           label={'Destino'}
           field={'destiny'}
           placeholder={''}
           type={'select'}
-          options={filters.destiny} />
+          options={filters.destiny}
+          customLabel={'name'}
+        />
       </div>
 
       <div style={{ width: '200px', display: 'flex', flexWrap: 'nowrap', gap: '1rem' }}>

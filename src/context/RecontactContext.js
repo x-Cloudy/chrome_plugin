@@ -7,8 +7,8 @@ export const RecontactProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const recontact = useRecontact();
 
-  const handleFetchData = async () => {
-    const { data, success } = await recontact.getContact();
+  const handleFetchData = async (filters) => {
+    const { data, success } = await recontact.getContact(filters);
     if (success) {
       setData(data.data)
     }

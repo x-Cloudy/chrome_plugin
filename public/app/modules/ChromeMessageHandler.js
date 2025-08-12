@@ -47,10 +47,6 @@ export default class ChromeMessageHandler {
           this.handleGetRecontact(request, sendResponse);
           break;
 
-        case "GET_TABLE":
-          this.handleTableData(request, sendResponse);
-          break;
-
         case "GET_TABLE_DESTINY_FILTER":
           this.handleTableDestinyFilter(request, sendResponse);
           break;
@@ -220,17 +216,27 @@ export default class ChromeMessageHandler {
 
   handleGetRecontact(request, sendResponse) {
     this.getToken().then((token) => {
-      fetch(`https://api.bpcruzeiros.com/admin/recontacts`, {
+      // Monta a query string se houver payload
+      let query = '';
+      if (request.payload && typeof request.payload === 'object') {
+        const params = new URLSearchParams(request.payload).toString();
+        if (params) {
+          query = `?${params}`;
+        }
+      }
+
+      fetch(`https://api.bpcruzeiros.com/admin/recontacts${query}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
-        }
+        },
       })
         .then(res => res.json())
         .then((data) => {
-          console.log('porraaaaa', data)
-          sendResponse({ success: true, data });
+         
+            sendResponse({ success: true, data });
+       
         })
         .catch(err => sendResponse({ success: false, error: err }));
     }).catch(err => sendResponse({ success: false, error: err }));
@@ -306,27 +312,10 @@ export default class ChromeMessageHandler {
     }).catch(err => sendResponse({ success: false, error: err }));
   }
 
-  handleTableData(request, sendResponse) {
-    this.getToken().then((token) => {
-      fetch(`https://api.bpcruzeiros.com/admin/annotation/${request.payload.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        }
-      })
-        .then(res => res.json())
-        .then((data) => {
-          sendResponse({ success: true, data });
-        })
-        .catch(err => sendResponse({ success: false, error: err }));
-    }).catch(err => sendResponse({ success: false, error: err }));
-  }
-
   handleTableDestinyFilter(request, sendResponse) {
     this.getToken().then((token) => {
-      fetch(`https://api.bpcruzeiros.com/admin/annotation/${request.payload.id}`, {
-        method: "DELETE",
+      fetch(`https://api.bpcruzeiros.com/admin/destinies`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
@@ -342,8 +331,8 @@ export default class ChromeMessageHandler {
 
   handleTableShipFilter(request, sendResponse) {
     this.getToken().then((token) => {
-      fetch(`https://api.bpcruzeiros.com/admin/annotation/${request.payload.id}`, {
-        method: "DELETE",
+      fetch(`https://api.bpcruzeiros.com/admin/count-ship`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`

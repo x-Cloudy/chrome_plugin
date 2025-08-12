@@ -8,8 +8,8 @@ import "./Table.css"
 const TablePage = () => {
   const { data, handleFetchData } = useRecontactContext();
 
-  const fetchData = async () => {
-    await handleFetchData();
+  const fetchData = async (filters) => {
+    await handleFetchData(filters);
   }
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const TablePage = () => {
         <CloseBtn />
       </div>
       <div className="table-filter">
-        <Filters />
+        <Filters onFilter={(filters) => fetchData(filters)} />
       </div>
 
       <div className="table-content">

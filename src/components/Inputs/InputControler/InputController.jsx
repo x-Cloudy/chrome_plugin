@@ -10,7 +10,8 @@ const Input = ({
   type = 'text',
   field,
   radio_options,
-  options
+  options,
+  customLabel
 }) => {
 
   const inputSwitcher = (type) => {
@@ -25,7 +26,7 @@ const Input = ({
         return <Radio onChange={onChange} field={field} radio_options={radio_options} />;
 
       case 'select':
-        return <InputSelect onChange={onChange} field={field} options={options} placeholder={placeholder} />;
+        return <InputSelect onChange={onChange} field={field} options={options} placeholder={placeholder} customLabel={customLabel} />;
 
       default:
         return <></>;

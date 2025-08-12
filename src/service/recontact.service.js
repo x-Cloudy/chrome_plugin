@@ -1,8 +1,9 @@
 import Fetch from "../modules/ChromeFetch";
 
 class Recontact extends Fetch {
-  async getContact() {
-   const response = await this.get("GET_RECONTACT");
+  async getContact(filters) {
+    console.log('entrou no recontan', filters)
+   const response = await this.post("GET_RECONTACT", filters);
    return response;
   }
 }
