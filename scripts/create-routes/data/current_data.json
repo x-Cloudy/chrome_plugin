@@ -1,0 +1,77 @@
+{
+  "listeners": [
+    {
+      "type": "PUT_FILTERS",
+      "usePayload": true
+    },
+    {
+      "type": "DELETE_FILTERS",
+      "usePayload": true
+    },
+    {
+      "type": "POST_FILTERS",
+      "usePayload": true
+    },
+    {
+      "type": "GET_FILTERS"
+    },
+    {
+      "type": "GET_RECONTACT",
+      "usePayload": true
+    },
+    {
+      "type": "GET_TABLE_DESTINY_FILTER"
+    },
+    {
+      "type": "GET_TABLE_SHIP_FILTER"
+    },
+    {
+      "type": "EXTENSION_ME",
+      "runtimeType": "ME"
+    },
+    {
+      "type": "EXTENSION_LOGIN",
+      "runtimeType": "LOGIN",
+      "usePayload": true
+    },
+    {
+      "type": "EXTENSION_QUOTE_CREATE",
+      "runtimeType": "QUOTE_CREATE",
+      "usePayload": true,
+      "postResponse": false,
+      "responseType": "EXTENSION_QUOTE_CREATE_RESPONSE"
+    },
+    {
+      "type": "EXTENSION_ANNOTATION_GET",
+      "runtimeType": "ANNOTATION_GET"
+    },
+    {
+      "type": "EXTENSION_ANNOTATION_POST",
+      "runtimeType": "ANNOTATION_POST",
+      "usePayload": true
+    },
+    {
+      "type": "EXTENSION_ANNOTATION_PUT",
+      "runtimeType": "ANNOTATION_PUT",
+      "usePayload": true
+    },
+    {
+      "type": "EXTENSION_ANNOTATION_DELETE",
+      "runtimeType": "ANNOTATION_DELETE",
+      "usePayload": true
+    },
+    {
+      "type": "EXTENSION_LOGOUT",
+      "handler": "handleLogout"
+    },
+    {
+      "type": "GET_TOKEN",
+      "handler": "handleGetToken"
+    },
+    {
+      "type": "EXTENSION_FETCH_IMAGE",
+      "handler": "handleFetchImage"
+    }
+  ],
+  "routes": []
+}
