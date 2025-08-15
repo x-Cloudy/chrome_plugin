@@ -17,8 +17,25 @@ class CodeWriter {
     this.payload_listener = {};
     this.new_listener = {};
 
+    this.payload_route = {};
+    this.new_routes = {};
+
     this.case_template = '';
     this.method_template = '';
+  }
+
+  async setPayload(args) {
+    this.payload_listener.type = `${args.method.toUpperCase()}_${args.name.toUpperCase()}`;
+    this.payload_listener.usePayload = args.payload ?? false;
+    this.new_listener = await this.storageWriter.storage_listener(this.payload_listener);
+
+    this.templateMaker.setTemplatesAttr(args);
+    this.payload_route.type = this.payload_listener.type;
+    this.payload_route.handler = this.templateMaker.func_name;
+    this.new_routes = await this.storageWriter.storage_route(this.payload_route);
+
+    this.case_template = await this.templateMaker.getCaseTemplate(this.new_routes);
+    this.method_template = await this.templateMaker.getMethodTemplate();
   }
 
   mountListener(new_listener) {
@@ -44,24 +61,20 @@ class CodeWriter {
   async writeRoteCase() {
     const output = await this.fileParser.replaceCode({
       path: this.background_path,
-      function_name: this.background_path,
-      new_code: new_code
+      function_name: this.background_func_name,
+      new_code: this.case_template
     });
 
-    console.log(output)
+    await this.fileParser.writeFiles(this.background_path, output);
   }
 
-  async setPayload(args) {
-    this.payload_listener.type = `${args.method.toUpperCase()}_${args.name.toUpperCase()}`;
-    this.payload_listener.usePayload = args.payload ?? false;
-    this.new_listener = await this.storageWriter.storage_listener(this.payload_listener);
-    
-    this.templateMaker.setTemplatesAttr(args);
-    this.case_template = this.templateMaker.getCaseTemplate();
-    this.method_template = this.templateMaker.getMethodTemplate();
+  async writeMethod() {
+    const output = await this.fileParser.addMethod({
+      path: this.background_path,
+      method_template: this.method_template
+    });
 
-    console.log(this.case_template)
-    console.log(this.method_template)
+    await this.fileParser.writeFiles(this.background_path, output);
   }
 }
 

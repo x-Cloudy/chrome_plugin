@@ -73,5 +73,66 @@
       "handler": "handleFetchImage"
     }
   ],
-  "routes": []
+  "routes": [
+    {
+      "type": "QUOTE_CREATE",
+      "handler": "handleQuoteCreate"
+    },
+    {
+      "type": "LOGIN",
+      "handler": "handleLogin"
+    },
+    {
+      "type": "ME",
+      "handler": "handleMe"
+    },
+    {
+      "type": "FETCH_IMAGE",
+      "handler": "handleFetchImage"
+    },
+    {
+      "type": "GET_FILTERS",
+      "handler": "handleFilterGet"
+    },
+    {
+      "type": "POST_FILTERS",
+      "handler": "handleFilterPost"
+    },
+    {
+      "type": "PUT_FILTERS",
+      "handler": "handleFilterPut"
+    },
+    {
+      "type": "DELETE_FILTERS",
+      "handler": "handleFilterDelete"
+    },
+    {
+      "type": "ANNOTATION_GET",
+      "handler": "handleAnnotationGet"
+    },
+    {
+      "type": "ANNOTATION_POST",
+      "handler": "handleAnnotationPost"
+    },
+    {
+      "type": "ANNOTATION_PUT",
+      "handler": "handleAnnotationPut"
+    },
+    {
+      "type": "ANNOTATION_DELETE",
+      "handler": "handleAnnotationDelete"
+    },
+    {
+      "type": "GET_RECONTACT",
+      "handler": "handleGetRecontact"
+    },
+    {
+      "type": "GET_TABLE_DESTINY_FILTER",
+      "handler": "handleTableDestinyFilter"
+    },
+    {
+      "type": "GET_TABLE_SHIP_FILTER",
+      "handler": "handleTableShipFilter"
+    }
+  ]
 }

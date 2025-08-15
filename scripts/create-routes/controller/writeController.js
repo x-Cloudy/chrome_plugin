@@ -23,40 +23,14 @@ class WriteController {
     if (!('url' in args)) throw new Error('A rota precisa ter uma url');
     if (typeof args.url === 'boolean') throw new Error('A url precisa de um valor válido');
 
-    switch (args.method) {
-      case "get":
-        this.get(args);
-        break;
-      case "post":
-        this.post(args);
-        break;
-      case "put":
-        this.put(args);
-        break;
-      case "delete":
-        this.delete(args);
-        break;
-
-      default:
-        throw new Error('Método inválido');
-    }
+    void this.loadWriter(args)
   }
 
-  async get(args) {
+  async loadWriter(args) {
     await this.codeWriter.setPayload(args);
     await this.codeWriter.writeListener();
-  }
-
-  async post() {
-
-  }
-
-  async put() {
-
-  }
-
-  async delete() {
-
+    await this.codeWriter.writeRoteCase();
+    await this.codeWriter.writeMethod();
   }
 }
 

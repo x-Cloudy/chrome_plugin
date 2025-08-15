@@ -22,18 +22,34 @@ class TemplateMaker {
     this.func_name = `handle${this.capitalize(name)}${this.capitalize(method)}`;
   }
 
-  getCaseTemplate() {
-    if (!this.func_name && !this.route_name) throw new Error('Erro ao montar template: func_name ou route_name inválidos');
-
-    const cases = `
-      case "${this.route_name}":
-        this.${this.func_name}(request, sendResponse);
+  async getCaseTemplate(routes) {
+    let all_cases = routes.reduce((acc, cur) => {
+      acc += `
+      case "${cur.type}":
+        this.${cur.handler}(request, sendResponse);
         break;
-    `
-    return cases
+      `
+      return acc;
+    }, '')
+
+    all_cases += `
+      default:
+        break;
+      `
+
+    const case_template = `
+      chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        switch (request.type) {
+          ${all_cases}
+        }
+        return true;
+      });
+    `;
+
+    return case_template;
   }
 
-  getMethodTemplate() {
+  async getMethodTemplate() {
     if (!this.func_name && !this.method && !this.url) {
       throw new Error('Erro ao montar template: func_name, method ou url inválidos')
     };
@@ -47,7 +63,7 @@ class TemplateMaker {
               "Content-Type": "application/json",
               "Authorization": \`Bearer \${token}\`
             }
-            ${this.method !== 'get' && 'body: JSON.stringify({ settings: request.payload })'}  
+            ${this.method !== 'get' ? 'body: JSON.stringify({ settings: request.payload })' : ''}  
           })
             .then(res => res.json())
             .then((data) => {

@@ -18,6 +18,19 @@ class DataStorage extends FileParser {
 
     return file.listeners;
   }
+
+  async storage_route(route) {
+    if (!route) throw new Error('Um method precisa ser fornecido');
+
+    const file_string = await this.readFiles(this.data_location);
+    const file = await JSON.parse(file_string);
+
+    file.routes.unshift(route);
+
+    await this.writeFiles(this.data_location, JSON.stringify(file));
+
+    return file.routes;
+  }
 };
 
 

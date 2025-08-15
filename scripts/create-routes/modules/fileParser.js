@@ -13,7 +13,7 @@ class FileParser {
 
   async replaceCode({ path, function_name, new_code }) {
     const code = await this.readFiles(path);
-    
+
     const ast = recast.parse(code, {
       parser: {
         parse(source) {
@@ -53,6 +53,55 @@ class FileParser {
 
     return recast.print(ast).code;
   }
+
+  async addMethod({ path, method_template }) {
+    const code = await this.readFiles(path);
+
+    const ast = recast.parse(code, {
+      parser: {
+        parse(source) {
+          return parse(source, {
+            sourceType: "module",
+            plugins: ["classProperties", "jsx", "typescript"],
+          });
+        },
+      },
+    });
+
+    recast.types.visit(ast, {
+      visitClassDeclaration(path) {
+        const { node } = path;
+
+        if (node.id && node.id.name === "ChromeMessageHandler") {
+          // Wrap o método em uma classe fake pra parsear
+          const wrapped = `class Dummy { ${method_template} }`;
+
+          const parsed = recast.parse(wrapped, {
+            parser: {
+              parse(source) {
+                return parse(source, {
+                  sourceType: "module",
+                  plugins: ["classProperties", "jsx", "typescript"],
+                });
+              },
+            },
+          });
+
+          // Extrai o método do corpo da classe Dummy
+          const dummyClass = parsed.program.body[0];
+          const newMethod = dummyClass.body.body[0];
+
+          // Push no final da classe real
+          node.body.body.push(newMethod);
+        }
+
+        return false;
+      },
+    });
+
+    return recast.print(ast).code;
+  }
+
 }
 
 module.exports = FileParser;
