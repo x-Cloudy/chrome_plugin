@@ -62,8 +62,8 @@ class TemplateMaker {
             headers: {
               "Content-Type": "application/json",
               "Authorization": \`Bearer \${token}\`
-            }
-            ${this.method !== 'get' ? 'body: JSON.stringify({ settings: request.payload })' : ''}  
+            },
+            ${this.method !== 'get' ? 'body: JSON.stringify(request.payload)' : ''}  
           })
             .then(res => res.json())
             .then((data) => {
@@ -73,7 +73,6 @@ class TemplateMaker {
         }).catch(err => sendResponse({ success: false, error: err }));
       }
     `;
-
     return method_template;
   }
 }

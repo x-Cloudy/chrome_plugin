@@ -4,29 +4,15 @@ class ArgsHandler {
   }
 
   getArgsFlag() {
-    const args = process.argv.slice(2);
-    const acc = { _: [] };
-
-    for (let i = 0; i < args.length; i++) {
-      const arg = args[i];
-
-      if (arg.startsWith("--")) {
+    return process.argv.slice(2).reduce((acc, arg) => {
+      if (arg.startsWith('--')) {
         const [key, value] = arg.slice(2).split("=");
-
-        if (value !== undefined) {
-          acc[key] = value;
-        } else if (args[i + 1] && !args[i + 1].startsWith("--")) {
-          acc[key] = args[i + 1];
-          i++;
-        } else {
-          acc[key] = true;
-        }
+        acc[key] = value ?? true;
       } else {
         acc._.push(arg);
       }
-    }
-
-    return acc;
+      return acc;
+    }, { _: [] })
   }
 }
 
