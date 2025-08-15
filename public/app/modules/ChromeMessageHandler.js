@@ -6,57 +6,74 @@ export default class ChromeMessageHandler {
   initListeners() {
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       switch (request.type) {
-        case "QUOTE_CREATE":
-          this.handleQuoteCreate(request, sendResponse);
-          break;
-        case "LOGIN":
-          this.handleLogin(request, sendResponse);
-          break;
-        case "ME":
-          this.handleMe(sendResponse);
-          break;
-        case "FETCH_IMAGE":
-          this.handleFetchImage(request, sendResponse);
-          break;
-        case "GET_FILTERS":
-          this.handleFilterGet(request, sendResponse);
-          break;
-        case "POST_FILTERS":
-          this.handleFilterPost(request, sendResponse);
-          break;
-        case "PUT_FILTERS":
-          this.handleFilterPut(request, sendResponse);
-          break;
-        case "DELETE_FILTERS":
-          this.handleFilterDelete(request, sendResponse);
-          break;
-        case "ANNOTATION_GET":
-          this.handleAnnotationGet(request, sendResponse);
-          break;
-        case "ANNOTATION_POST":
-          this.handleAnnotationPost(request, sendResponse);
-          break;
-        case "ANNOTATION_PUT":
-          this.handleAnnotationPut(request, sendResponse);
-          break;
-        case "ANNOTATION_DELETE":
-          this.handleAnnotationDelete(request, sendResponse);
-          break;
-
-        case "GET_RECONTACT":
-          this.handleGetRecontact(request, sendResponse);
-          break;
-
-        case "GET_TABLE_DESTINY_FILTER":
-          this.handleTableDestinyFilter(request, sendResponse);
-          break;
-
-        case "GET_TABLE_SHIP_FILTER":
-          this.handleTableShipFilter(request, sendResponse);
-          break;
-
-        default:
-          break;
+        
+    case "GET_DEUCERTOPORRA":
+      this.handleDeuCertoPorraGet(request, sendResponse);
+      break;
+    
+    case "QUOTE_CREATE":
+      this.handleQuoteCreate(request, sendResponse);
+      break;
+    
+    case "LOGIN":
+      this.handleLogin(request, sendResponse);
+      break;
+    
+    case "ME":
+      this.handleMe(request, sendResponse);
+      break;
+    
+    case "FETCH_IMAGE":
+      this.handleFetchImage(request, sendResponse);
+      break;
+    
+    case "GET_FILTERS":
+      this.handleFilterGet(request, sendResponse);
+      break;
+    
+    case "POST_FILTERS":
+      this.handleFilterPost(request, sendResponse);
+      break;
+    
+    case "PUT_FILTERS":
+      this.handleFilterPut(request, sendResponse);
+      break;
+    
+    case "DELETE_FILTERS":
+      this.handleFilterDelete(request, sendResponse);
+      break;
+    
+    case "ANNOTATION_GET":
+      this.handleAnnotationGet(request, sendResponse);
+      break;
+    
+    case "ANNOTATION_POST":
+      this.handleAnnotationPost(request, sendResponse);
+      break;
+    
+    case "ANNOTATION_PUT":
+      this.handleAnnotationPut(request, sendResponse);
+      break;
+    
+    case "ANNOTATION_DELETE":
+      this.handleAnnotationDelete(request, sendResponse);
+      break;
+    
+    case "GET_RECONTACT":
+      this.handleGetRecontact(request, sendResponse);
+      break;
+    
+    case "GET_TABLE_DESTINY_FILTER":
+      this.handleTableDestinyFilter(request, sendResponse);
+      break;
+    
+    case "GET_TABLE_SHIP_FILTER":
+      this.handleTableShipFilter(request, sendResponse);
+      break;
+    
+    default:
+      break;
+    
       }
       return true;
     });
@@ -337,6 +354,23 @@ export default class ChromeMessageHandler {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         }
+      })
+        .then(res => res.json())
+        .then((data) => {
+          sendResponse({ success: true, data });
+        })
+        .catch(err => sendResponse({ success: false, error: err }));
+    }).catch(err => sendResponse({ success: false, error: err }));
+  }
+  handleDeuCertoPorraGet(request, sendResponse) {
+    this.getToken().then((token) => {
+      fetch("https://api.bpcruzeiros.com/admin/teste", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+          
       })
         .then(res => res.json())
         .then((data) => {

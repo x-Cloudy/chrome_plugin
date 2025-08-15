@@ -4,30 +4,7 @@ class ExtensionMessageHandler {
   }
 
   setupListeners() {
-    this.registerMessage({ type: 'PUT_FILTERS', usePayload: true });
-    this.registerMessage({ type: 'DELETE_FILTERS', usePayload: true });
-    this.registerMessage({ type: 'POST_FILTERS', usePayload: true });
-    this.registerMessage({ type: 'GET_FILTERS' });
-    this.registerMessage({ type: 'GET_RECONTACT', usePayload: true });
-    this.registerMessage({ type: 'GET_TABLE_DESTINY_FILTER'})
-    this.registerMessage({ type: 'GET_TABLE_SHIP_FILTER'})
-    this.registerMessage({ type: 'EXTENSION_ME', runtimeType: 'ME' });
-    this.registerMessage({ type: 'EXTENSION_LOGIN', runtimeType: 'LOGIN', usePayload: true });
-    this.registerMessage({
-      type: 'EXTENSION_QUOTE_CREATE',
-      runtimeType: 'QUOTE_CREATE',
-      usePayload: true,
-      postResponse: false,
-      responseType: 'EXTENSION_QUOTE_CREATE_RESPONSE'
-    });
-    this.registerMessage({ type: 'EXTENSION_ANNOTATION_GET', runtimeType: 'ANNOTATION_GET' });
-    this.registerMessage({ type: 'EXTENSION_ANNOTATION_POST', runtimeType: 'ANNOTATION_POST', usePayload: true });
-    this.registerMessage({ type: 'EXTENSION_ANNOTATION_PUT', runtimeType: 'ANNOTATION_PUT', usePayload: true });
-    this.registerMessage({ type: 'EXTENSION_ANNOTATION_DELETE', runtimeType: 'ANNOTATION_DELETE', usePayload: true });
-
-    this.registerCustom('EXTENSION_LOGOUT', this.handleLogout);
-    this.registerCustom('GET_TOKEN', this.handleGetToken);
-    this.registerCustom('EXTENSION_FETCH_IMAGE', this.handleFetchImage);
+    this.registerMessage({ type: 'GET_DEUCERTOPORRA', usePayload: false });this.registerMessage({ type: 'PUT_FILTERS', usePayload: true });this.registerMessage({ type: 'DELETE_FILTERS', usePayload: true });this.registerMessage({ type: 'POST_FILTERS', usePayload: true });this.registerMessage({ type: 'GET_FILTERS', usePayload: false });this.registerMessage({ type: 'GET_RECONTACT', usePayload: true });this.registerMessage({ type: 'GET_TABLE_DESTINY_FILTER', usePayload: false });this.registerMessage({ type: 'GET_TABLE_SHIP_FILTER', usePayload: false });this.registerMessage({ type: 'EXTENSION_ME', usePayload: false });this.registerMessage({ type: 'EXTENSION_LOGIN', usePayload: true });this.registerMessage({ type: 'EXTENSION_QUOTE_CREATE', usePayload: true });this.registerMessage({ type: 'EXTENSION_ANNOTATION_GET', usePayload: false });this.registerMessage({ type: 'EXTENSION_ANNOTATION_POST', usePayload: true });this.registerMessage({ type: 'EXTENSION_ANNOTATION_PUT', usePayload: true });this.registerMessage({ type: 'EXTENSION_ANNOTATION_DELETE', usePayload: true });this.registerMessage({ type: 'EXTENSION_LOGOUT', usePayload: false });this.registerMessage({ type: 'GET_TOKEN', usePayload: false });this.registerMessage({ type: 'EXTENSION_FETCH_IMAGE', usePayload: false });
   }
 
   registerMessage({

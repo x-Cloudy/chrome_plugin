@@ -73,7 +73,6 @@ class FileParser {
         const { node } = path;
 
         if (node.id && node.id.name === "ChromeMessageHandler") {
-          // Wrap o método em uma classe fake pra parsear
           const wrapped = `class Dummy { ${method_template} }`;
 
           const parsed = recast.parse(wrapped, {
@@ -87,11 +86,8 @@ class FileParser {
             },
           });
 
-          // Extrai o método do corpo da classe Dummy
           const dummyClass = parsed.program.body[0];
           const newMethod = dummyClass.body.body[0];
-
-          // Push no final da classe real
           node.body.body.push(newMethod);
         }
 
